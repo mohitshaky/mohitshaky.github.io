@@ -258,8 +258,23 @@ ul { list-style: none; }
 }
 .service-card.web-card:hover { border-color: #28c864; }
 .service-icon { font-size: 2rem; margin-bottom: 1rem; }
-.service-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.6rem; color: var(--text); }
+.service-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--text); }
 .service-card p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; }
+
+/* Service bullet list */
+.service-list {
+  list-style: none; padding: 0; margin: 0 0 1rem;
+  display: flex; flex-direction: column; gap: 0.45rem;
+}
+.service-list li { font-size: 0.88rem; color: var(--text-muted); line-height: 1.5; }
+.service-time {
+  display: inline-block;
+  background: rgba(26,115,232,0.08);
+  color: var(--primary);
+  border: 1px solid rgba(26,115,232,0.2);
+  padding: 3px 12px; border-radius: 50px;
+  font-size: 0.8rem; font-weight: 600;
+}
 
 /* ===== PROJECTS ===== */
 .projects { background: var(--bg); }
@@ -278,8 +293,21 @@ ul { list-style: none; }
   padding: 3px 12px; border-radius: 50px;
   font-size: 0.75rem; font-weight: 600;
 }
-.project-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.6rem; color: var(--text); }
-.project-card p { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1.2rem; line-height: 1.6; }
+.project-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--text); }
+.project-card p { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1rem; line-height: 1.6; }
+
+/* Impact numbers (replaces impact-row) */
+.impact-numbers {
+  display: flex; flex-wrap: wrap; gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+.impact-numbers span {
+  font-size: 0.8rem; font-weight: 600;
+  color: var(--primary);
+  background: rgba(26,115,232,0.08);
+  border: 1px solid rgba(26,115,232,0.2);
+  padding: 3px 10px; border-radius: 50px;
+}
 .project-tech { display: flex; flex-wrap: wrap; gap: 0.4rem; }
 .btn-github {
   color: var(--text) !important; font-weight: 600 !important;
@@ -339,6 +367,26 @@ ul { list-style: none; }
 /* ===== HERO BULLETS ===== */
 .hero-bullets { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 2rem; }
 .hero-bullet { font-size: 1rem; color: var(--text); font-weight: 500; }
+
+/* ===== HERO TRUST BADGES ===== */
+.trust-badges {
+  display: flex; flex-wrap: wrap; gap: 0.6rem;
+  margin-bottom: 1.2rem;
+}
+.trust-badges span {
+  background: rgba(26,115,232,0.1);
+  color: var(--primary);
+  border: 1px solid rgba(26,115,232,0.25);
+  padding: 4px 14px; border-radius: 50px;
+  font-size: 0.82rem; font-weight: 600;
+}
+
+/* ===== HERO SUBTITLE ===== */
+.hero-sub {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  color: var(--text-muted); font-weight: 500;
+  margin-bottom: 2rem; max-width: 520px;
+}
 
 /* ===== TRUST BAR ===== */
 .trust-bar {
@@ -434,6 +482,43 @@ ul { list-style: none; }
 .problem-card h3 { color: white; font-size: 1.1rem; margin-bottom: 0.75rem; }
 .problem-card p { color: rgba(255,255,255,0.65); font-size: 0.95rem; line-height: 1.7; }
 .problems-cta { text-align: center; }
+
+/* ===== EASY ENTRY SECTION ===== */
+.easy-entry { background: var(--bg-alt); }
+.entry-box {
+  display: flex; flex-wrap: wrap; gap: 3rem;
+  align-items: flex-start;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 3rem;
+  box-shadow: var(--shadow);
+}
+.entry-left { flex: 1; min-width: 240px; }
+.entry-left h2 {
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 800; color: var(--text);
+  margin-bottom: 0.75rem; line-height: 1.2;
+}
+.entry-left h2 span { color: var(--primary); }
+.entry-sub { font-size: 1rem; color: var(--text-muted); }
+.entry-options {
+  flex: 2; display: flex; gap: 1rem; flex-wrap: wrap;
+}
+.entry-card {
+  flex: 1; min-width: 160px;
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  display: flex; flex-direction: column; gap: 0.5rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.entry-card:hover { border-color: var(--primary); box-shadow: var(--shadow); }
+.entry-icon { font-size: 1.8rem; }
+.entry-card h4 { font-size: 1rem; font-weight: 700; color: var(--text); }
+.entry-card p { font-size: 0.85rem; color: var(--text-muted); flex: 1; }
+.entry-card a { margin-top: 0.5rem; text-align: center; font-size: 0.85rem; }
 
 /* ===== FOOTER ===== */
 .footer {
