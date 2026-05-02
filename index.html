@@ -25,8 +25,7 @@
   <nav class="navbar">
     <div class="nav-brand">Mohit<span>.</span></div>
     <ul class="nav-links">
-      <li><a href="#about">About</a></li>
-      <li><a href="#skills">Skills</a></li>
+      <li><a href="#solutions">Solutions</a></li>
       <li><a href="#services">Services</a></li>
       <li><a href="#projects">Projects</a></li>
       <li><a href="#pricing">Pricing</a></li>
@@ -39,62 +38,76 @@
   <!-- HERO -->
   <section class="hero" id="home">
     <div class="hero-content">
-      <p class="hero-tag">&#128994; Available for Freelance — 2026</p>
-      <h1>Hi, I'm <span>Mohit</span></h1>
-      <h2>Backend, API &amp; Performance Engineer</h2>
-      <p class="hero-desc">
-        6+ years building robust, scalable backend systems with Java, Spring Boot, Microservices, and Kafka.
-        I build fast, production-ready APIs — and fix slow ones too.
-        From architecture to Kafka tuning to database query optimization.
-      </p>
+      <p class="hero-tag">&#128994; Available for Projects — Responds within 24h</p>
+      <h1>Your backend, <span>built right.</span></h1>
+      <h2>I design and deliver production-ready Java APIs, Kafka pipelines &amp; workflow systems — so your team ships faster without worrying about the backend.</h2>
+      <div class="hero-bullets">
+        <div class="hero-bullet">&#9989; REST APIs delivered in 1–3 weeks</div>
+        <div class="hero-bullet">&#9989; Clean code, Swagger docs, fully tested</div>
+        <div class="hero-bullet">&#9989; Enterprise-grade quality at freelance rates</div>
+      </div>
       <div class="hero-cta">
-        <a href="#contact" class="btn-primary">Let's Work Together</a>
-        <a href="#projects" class="btn-secondary">View Projects</a>
-        <a href="https://linkedin.com/in/mohit-shakya-9ab944110" target="_blank" class="btn-cv">&#128196; View LinkedIn Profile</a>
+        <a href="#contact" class="btn-primary">&#128172; Let's Discuss Your Project</a>
+        <a href="#projects" class="btn-secondary">&#128064; See My Work</a>
       </div>
       <div class="hero-stats">
         <div class="stat"><span>6+</span><p>Years Experience</p></div>
-        <div class="stat"><span>Aug 2019</span><p>Working Since</p></div>
         <div class="stat"><span>10+</span><p>Enterprise Systems</p></div>
+        <div class="stat"><span>24h</span><p>Response Time</p></div>
+      </div>
+      <div class="trust-bar">
+        <span>&#127974; Banking domain</span>
+        <span>&#128225; Telecom systems</span>
+        <span>&#9889; Enterprise-grade</span>
+        <span>&#127759; Remote worldwide</span>
+        <span>&#128172; 24h response</span>
       </div>
     </div>
     <div class="hero-visual">
-      <div class="avatar-card">
-        <div class="avatar-photo-wrap">
-          <!-- Replace photo.jpg with your real photo later -->
-          <img src="photo.jpg" alt="Mohit" class="avatar-photo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
-          <div class="avatar-circle avatar-fallback">MS</div>
-        </div>
-        <div class="avatar-info">
-          <strong>Mohit</strong>
-          <span>Backend Developer · India</span>
-          <span style="font-size:0.75rem;color:var(--text-muted);">Telecom &amp; Banking Domain</span>
-          <div class="avatar-badges">
-            <span class="badge-green">&#128994; Available Now</span>
-            <span class="badge-blue">&#9889; Fast Delivery</span>
-            <span class="badge-orange">&#128200; Perf Tuning</span>
-          </div>
+      <div class="delivery-card">
+        <h4>&#128230; What You Get</h4>
+        <div class="delivery-item"><span>&#9989;</span> Working API or system</div>
+        <div class="delivery-item"><span>&#9989;</span> Full documentation</div>
+        <div class="delivery-item"><span>&#9989;</span> Swagger UI included</div>
+        <div class="delivery-item"><span>&#9989;</span> Docker-ready</div>
+        <div class="delivery-item"><span>&#9989;</span> 2-week support</div>
+        <div class="delivery-meta">
+          <span>&#9889; Typical delivery: 1–3 weeks</span>
+          <span>&#128172; Response: within 24h</span>
         </div>
       </div>
-      <div class="code-card">
-        <div class="code-header">
-          <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
-          <span class="code-title">SubscriptionController.java</span>
+    </div>
+  </section>
+
+  <!-- PAIN POINTS / SOLUTIONS -->
+  <section class="problems-section" id="solutions">
+    <div class="container">
+      <p class="problems-intro">Sound familiar?</p>
+      <h2 class="section-title-dark">I solve these <span style="color:#79b8ff">exact problems</span></h2>
+      <div class="problems-grid">
+        <div class="problem-card">
+          <span class="prob-icon">&#128034;</span>
+          <h3>Your API is too slow</h3>
+          <p>Users complaining about response time? I diagnose bottlenecks, optimize queries, tune JVM and fix it — with proof of improvement.</p>
         </div>
-        <pre class="code-body"><span class="c-blue">@RestController</span>
-<span class="c-blue">@RequestMapping</span>(<span class="c-green">"/api/v1"</span>)
-<span class="c-blue">public class</span> <span class="c-yellow">SubscriptionController</span> {
-
-  <span class="c-blue">@Autowired</span>
-  <span class="c-blue">private</span> SubscriptionService service;
-
-  <span class="c-blue">@PostMapping</span>(<span class="c-green">"/subscribe"</span>)
-  <span class="c-blue">public</span> ResponseEntity&lt;?&gt; subscribe(
-    <span class="c-blue">@RequestBody</span> SubscribeRequest req) {
-    <span class="c-blue">return</span> ResponseEntity
-      .ok(service.process(req));
-  }
-}</pre>
+        <div class="problem-card">
+          <span class="prob-icon">&#127959;&#65039;</span>
+          <h3>Need a backend built from scratch</h3>
+          <p>You have a product idea but no backend team. I design the architecture, build the APIs, set up the database, and hand you something you can actually run.</p>
+        </div>
+        <div class="problem-card">
+          <span class="prob-icon">&#128260;</span>
+          <h3>Complex workflows still manual</h3>
+          <p>Approvals, order flows, provisioning — done by hand or spreadsheets. I automate these with proper workflow systems that save time and reduce errors.</p>
+        </div>
+        <div class="problem-card">
+          <span class="prob-icon">&#128165;</span>
+          <h3>Your system breaks under load</h3>
+          <p>Works fine with 10 users, crashes with 1000. I identify the scaling issues and refactor for performance — Kafka, connection pools, caching, all of it.</p>
+        </div>
+      </div>
+      <div class="problems-cta">
+        <a href="#contact" class="btn-primary">Yes — Let's Fix This</a>
       </div>
     </div>
   </section>
@@ -102,36 +115,32 @@
   <!-- ABOUT -->
   <section class="section about" id="about">
     <div class="container">
-      <h2 class="section-title">About <span>Me</span></h2>
+      <h2 class="section-title">Why Hire <span>Me</span></h2>
       <div class="about-grid">
         <div class="about-text">
           <p>
-            I'm a <strong>Backend Developer</strong> with over <strong>6 years</strong> of experience building
-            enterprise-grade systems in the <strong>Telecom</strong> and <strong>Banking/FinTech</strong> domains.
-            I specialize in <strong>Java/Spring Boot microservices</strong>, event-driven architectures
-            with <strong>Kafka</strong>, workflow automation using <strong>BPMN/Flowable</strong>,
-            and both SQL and NoSQL databases.
+            For the past <strong>6 years</strong>, I've been building the backend systems that power
+            <strong>Telecom and Banking companies</strong> — the kind of systems that handle thousands of
+            transactions every day without breaking.
           </p>
           <p>
-            I've built production systems handling thousands of daily transactions — from event-driven
-            provisioning pipelines to subscription lifecycle engines. I bring the same enterprise standards to every
-            freelance project: clean architecture, proper error handling, full test coverage, and documentation.
+            When you hire me, you're not getting a junior developer learning on your project.
+            You're getting someone who's already solved your problem at scale — and can do it for you,
+            <strong>faster and cleaner.</strong>
           </p>
           <ul class="about-list">
-            <li>&#9989; Telecom &amp; Banking domain expertise</li>
-            <li>&#9989; Microservice architecture design</li>
-            <li>&#9989; Event-driven systems with Kafka</li>
-            <li>&#9989; BPMN workflow automation (Flowable)</li>
-            <li>&#9989; Database design + query performance tuning</li>
-            <li>&#9989; API performance diagnosis &amp; JVM optimization</li>
-            <li>&#9989; Kafka consumer lag &amp; throughput tuning</li>
+            <li>&#9989; APIs that don't break under real-world load</li>
+            <li>&#9989; Systems designed to grow with your business</li>
+            <li>&#9989; Documentation your team can actually use</li>
+            <li>&#9989; Code you can maintain long after I'm done</li>
+            <li>&#9989; Clear communication at every step</li>
           </ul>
         </div>
         <div class="about-cards">
-          <div class="info-card"><div class="info-icon">&#127919;</div><h4>Focused</h4><p>Delivering clean backend solutions tailored to your business needs</p></div>
-          <div class="info-card"><div class="info-icon">&#9889;</div><h4>Fast Delivery</h4><p>Efficient development with clear milestones and timely delivery</p></div>
-          <div class="info-card"><div class="info-icon">&#128274;</div><h4>Reliable</h4><p>Production-ready code with security, error handling &amp; monitoring</p></div>
-          <div class="info-card"><div class="info-icon">&#129309;</div><h4>Collaborative</h4><p>Clear communication and regular updates throughout the project</p></div>
+          <div class="info-card"><div class="info-icon">&#127919;</div><h4>Your Problem First</h4><p>I focus on delivering exactly what your business needs — not over-engineering for its own sake</p></div>
+          <div class="info-card"><div class="info-icon">&#9889;</div><h4>Fast Turnaround</h4><p>1–3 week delivery on most projects, with regular progress updates so you're never in the dark</p></div>
+          <div class="info-card"><div class="info-icon">&#128274;</div><h4>Production-Ready</h4><p>Security, error handling, tests, docs — everything a real system needs, not just a demo</p></div>
+          <div class="info-card"><div class="info-icon">&#129309;</div><h4>Ongoing Support</h4><p>2 weeks free post-delivery support. I don't disappear after sending the code.</p></div>
         </div>
       </div>
     </div>
@@ -185,52 +194,53 @@
   <!-- SERVICES -->
   <section class="section services" id="services">
     <div class="container">
-      <h2 class="section-title">What I <span>Offer</span></h2>
+      <h2 class="section-title">What I <span>Deliver</span></h2>
+      <p class="section-sub">Not just code — complete, working solutions your business can rely on</p>
       <div class="services-grid">
         <div class="service-card">
           <div class="service-icon">&#128296;</div>
           <h3>REST API Development</h3>
-          <p>Design and build robust, well-documented RESTful APIs using Spring Boot with proper authentication, versioning, error handling, and Swagger docs.</p>
+          <p>Need an API built? I deliver a complete, working REST API — with authentication, documentation, and tests — ready for your frontend or mobile app to connect to. <strong>Typical turnaround: 1–2 weeks.</strong></p>
         </div>
         <div class="service-card">
           <div class="service-icon">&#127959;&#65039;</div>
           <h3>Microservices Architecture</h3>
-          <p>Build new systems or break down monoliths using scalable microservice patterns with service discovery, circuit breakers, load balancing, and resilience.</p>
+          <p>Got a monolith slowing you down, or need to build something scalable from day one? I design and build microservice systems that can grow with your business — without becoming a maintenance nightmare. <strong>2–4 weeks.</strong></p>
         </div>
         <div class="service-card">
           <div class="service-icon">&#128232;</div>
-          <h3>Event-Driven Systems</h3>
-          <p>Build real-time, asynchronous systems using Apache Kafka — producers, consumers, topic design, partition strategy, and reliable message streaming at scale.</p>
+          <h3>Event-Driven &amp; Kafka Systems</h3>
+          <p>Need real-time data flow between your services? I build reliable Kafka pipelines so events move instantly, nothing gets lost, and your system stays responsive at high volume. <strong>1–3 weeks.</strong></p>
         </div>
         <div class="service-card">
           <div class="service-icon">&#128203;</div>
-          <h3>Workflow Automation (BPMN)</h3>
-          <p>Automate complex business processes using BPMN/Flowable — approvals, order flows, provisioning pipelines, notifications, and retry handling with JavaDelegate.</p>
+          <h3>Workflow Automation</h3>
+          <p>Still running approvals or order flows by hand? I automate complex multi-step business processes — approvals, provisioning, notifications — so your team stops doing repetitive work and errors drop. <strong>2–3 weeks.</strong></p>
         </div>
         <div class="service-card perf-card">
           <div class="service-icon">&#9889;</div>
-          <h3>API &amp; JVM Performance Tuning</h3>
-          <p>Diagnose and fix slow APIs, high latency, memory leaks, and JVM bottlenecks. Thread pool tuning, connection pool sizing, GC optimization, and profiling.</p>
+          <h3>API Performance Fix</h3>
+          <p>Slow API hurting your users? I find exactly what's causing it — slow queries, JVM issues, thread bottlenecks — fix it, and show you the before/after numbers. You get a faster app, not just a guess. <strong>3–7 days.</strong></p>
         </div>
         <div class="service-card perf-card">
           <div class="service-icon">&#128200;</div>
-          <h3>Kafka Fine-Tuning</h3>
-          <p>Fix consumer lag, optimize throughput, tune partition counts, replication factor, batch size, and linger settings for high-volume Kafka pipelines.</p>
+          <h3>Kafka Throughput Tuning</h3>
+          <p>Consumer lag piling up? Messages slowing down under load? I tune your Kafka setup — partitions, batch sizes, consumer groups — until throughput is where it needs to be. <strong>3–5 days.</strong></p>
         </div>
         <div class="service-card perf-card">
           <div class="service-icon">&#128452;</div>
-          <h3>Database Performance Optimization</h3>
-          <p>Analyze slow queries, design index strategies, optimize MongoDB aggregations and MySQL joins. Fix N+1 problems, tune connection pools and write patterns.</p>
+          <h3>Database Performance</h3>
+          <p>Slow queries killing your app? I analyze your database, design the right indexes, rewrite problem queries, and fix N+1 issues — so your app feels fast again without a database rewrite. <strong>3–7 days.</strong></p>
         </div>
         <div class="service-card">
           <div class="service-icon">&#128269;</div>
           <h3>Backend Audit &amp; Consulting</h3>
-          <p>Deep-dive review of your backend — architecture, API design, security gaps, performance bottlenecks — with a written report and concrete action plan.</p>
+          <p>Not sure why your system is struggling? I do a deep-dive review of your backend — architecture, security, performance — and give you a concrete written action plan you can actually use. <strong>2–4 days.</strong></p>
         </div>
         <div class="service-card web-card">
           <div class="service-icon">&#127760;</div>
           <h3>Portfolio &amp; Business Websites</h3>
-          <p>Clean, fast, mobile-friendly websites — developer portfolios, freelancer pages, business landing pages. Delivered as static sites, ready to host on GitHub Pages or Netlify for free.</p>
+          <p>Need an online presence that actually converts? I build clean, fast, mobile-friendly websites — portfolio pages, freelancer sites, business landing pages — hosted free on GitHub Pages or Netlify. <strong>3–5 days.</strong></p>
         </div>
       </div>
     </div>
@@ -609,7 +619,7 @@
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
     }, { threshold: 0.1 });
-    document.querySelectorAll('.skill-group, .service-card, .project-card, .info-card, .process-step, .testimonial-card, .pricing-card').forEach(el => {
+    document.querySelectorAll('.skill-group, .service-card, .project-card, .info-card, .process-step, .testimonial-card, .pricing-card, .problem-card').forEach(el => {
       el.classList.add('reveal');
       observer.observe(el);
     });

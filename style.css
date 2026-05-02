@@ -80,6 +80,12 @@ ul { list-style: none; }
 }
 .btn-primary:hover { box-shadow: 0 8px 28px rgba(26,115,232,0.5); transform: translateY(-2px); }
 
+/* Bigger CTA in hero */
+.hero-cta .btn-primary {
+  padding: 18px 40px;
+  font-size: 1.1rem;
+}
+
 .btn-secondary {
   display: inline-block;
   color: var(--primary); padding: 13px 30px;
@@ -95,7 +101,7 @@ ul { list-style: none; }
   display: flex; align-items: center; justify-content: space-between;
   gap: 3rem;
   padding: 100px 6% 60px;
-  background: linear-gradient(160deg, #f0f6ff 0%, #e8f0fe 50%, #f8faff 100%);
+  background: linear-gradient(160deg, #ddeeff 0%, #c5d9f9 40%, #e8f0fe 100%);
   position: relative; overflow: hidden;
 }
 .hero::before {
@@ -118,8 +124,8 @@ ul { list-style: none; }
 }
 
 .hero-content h1 {
-  font-size: clamp(2.4rem, 5vw, 3.6rem);
-  font-weight: 800; line-height: 1.15;
+  font-size: clamp(3rem, 6vw, 4.5rem);
+  font-weight: 900; line-height: 1.1;
   color: var(--text); margin-bottom: 0.4rem;
 }
 .hero-content h1 span { color: var(--primary); }
@@ -330,6 +336,105 @@ ul { list-style: none; }
 .contact-form textarea:focus { border-color: var(--primary); }
 .contact-form button { width: 100%; }
 
+/* ===== HERO BULLETS ===== */
+.hero-bullets { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 2rem; }
+.hero-bullet { font-size: 1rem; color: var(--text); font-weight: 500; }
+
+/* ===== TRUST BAR ===== */
+.trust-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+}
+.trust-bar span {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* ===== DELIVERY CARD ===== */
+.delivery-card {
+  background: white;
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 20px 60px rgba(26,115,232,0.15);
+  border: 1px solid var(--border);
+  min-width: 300px;
+}
+.delivery-card h4 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 1.25rem;
+  color: var(--text);
+}
+.delivery-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--bg-alt);
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
+.delivery-item:last-of-type { border-bottom: none; }
+.delivery-meta {
+  margin-top: 1.25rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.delivery-meta span {
+  font-size: 0.88rem;
+  color: var(--primary);
+  font-weight: 600;
+}
+
+/* ===== PAIN POINTS SECTION ===== */
+.problems-section {
+  background: #0d1b2e;
+  padding: 80px 0;
+  color: white;
+}
+.problems-section .section-title-dark {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  color: white;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+.problems-intro {
+  text-align: center;
+  font-size: 1.1rem;
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 0.5rem;
+}
+.problems-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0 3rem;
+}
+.problem-card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 16px;
+  padding: 2rem;
+  transition: background 0.2s, border-color 0.2s;
+}
+.problem-card:hover {
+  background: rgba(26,115,232,0.15);
+  border-color: rgba(26,115,232,0.4);
+}
+.prob-icon { font-size: 2rem; display: block; margin-bottom: 1rem; }
+.problem-card h3 { color: white; font-size: 1.1rem; margin-bottom: 0.75rem; }
+.problem-card p { color: rgba(255,255,255,0.65); font-size: 0.95rem; line-height: 1.7; }
+.problems-cta { text-align: center; }
+
 /* ===== FOOTER ===== */
 .footer {
   background: #0d1b2e; color: #8899bb;
@@ -513,6 +618,7 @@ ul { list-style: none; }
   .hero { flex-direction: column; padding-top: 110px; text-align: center; }
   .hero-cta { justify-content: center; }
   .hero-stats { justify-content: center; }
+  .trust-bar { justify-content: center; }
   .about-grid { grid-template-columns: 1fr; }
   .skills-grid { grid-template-columns: repeat(2, 1fr); }
   .services-grid { grid-template-columns: repeat(2, 1fr); }
@@ -523,6 +629,7 @@ ul { list-style: none; }
   .testimonials-grid { grid-template-columns: 1fr; }
   .pricing-grid { grid-template-columns: 1fr; }
   .pricing-popular { transform: none; }
+  .problems-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 600px) {
@@ -532,4 +639,6 @@ ul { list-style: none; }
   .about-cards { grid-template-columns: 1fr; }
   .nav-links { gap: 1rem; }
   .code-card { width: 100%; }
+  .problems-grid { grid-template-columns: 1fr; }
+  .delivery-card { min-width: unset; width: 100%; }
 }
