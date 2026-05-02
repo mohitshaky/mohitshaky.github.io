@@ -574,6 +574,35 @@ ul { list-style: none; }
 .entry-card p { font-size: 0.85rem; color: var(--text-muted); flex: 1; }
 .entry-card a { margin-top: 0.5rem; text-align: center; font-size: 0.85rem; }
 
+/* ===== FIRST CLIENT OFFER BANNER ===== */
+.first-client-offer {
+  display: flex; align-items: center; flex-wrap: wrap; gap: 1rem;
+  background: linear-gradient(135deg, #fff8e1, #fff3cd);
+  border: 1.5px solid #ffc107;
+  border-radius: var(--radius);
+  padding: 1.2rem 1.8rem;
+  margin-bottom: 2.5rem;
+}
+.offer-badge {
+  background: #ffc107; color: #1a1a2e;
+  font-size: 0.78rem; font-weight: 800;
+  padding: 4px 12px; border-radius: 50px;
+  white-space: nowrap; letter-spacing: 0.3px;
+}
+.first-client-offer p {
+  flex: 1; min-width: 200px;
+  font-size: 0.92rem; color: #5a4000; margin: 0;
+}
+.first-client-offer p strong { color: #1a1a2e; }
+.offer-cta {
+  background: #1a73e8; color: white;
+  padding: 8px 20px; border-radius: 50px;
+  font-size: 0.85rem; font-weight: 700;
+  white-space: nowrap;
+  transition: opacity 0.2s, transform 0.15s;
+}
+.offer-cta:hover { opacity: 0.88; transform: translateY(-1px); }
+
 /* ===== FOOTER ===== */
 .footer {
   background: #0d1b2e; color: #8899bb;
