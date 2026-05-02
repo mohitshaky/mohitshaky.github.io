@@ -193,7 +193,8 @@ ul { list-style: none; }
 .section-title {
   font-size: clamp(1.8rem, 3.5vw, 2.4rem);
   font-weight: 800; text-align: center;
-  margin-bottom: 3rem; color: var(--text);
+  margin-bottom: 3.5rem; color: var(--text);
+  letter-spacing: -0.5px;
 }
 .section-title span {
   background: linear-gradient(90deg, #1a73e8, #0d47a1);
@@ -308,7 +309,7 @@ ul { list-style: none; }
 }
 .project-card:hover {
   transform: translateY(-6px) scale(1.01);
-  box-shadow: 0 12px 40px rgba(26,115,232,0.25);
+  box-shadow: 0 14px 45px rgba(26,115,232,0.28);
   border-color: var(--primary);
 }
 .project-header { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
@@ -408,8 +409,8 @@ ul { list-style: none; }
 /* ===== HERO SUBTITLE ===== */
 .hero-sub {
   font-size: clamp(1rem, 2vw, 1.2rem);
-  color: var(--text-muted); font-weight: 500;
-  margin-bottom: 1rem; max-width: 520px;
+  color: #4b5a7a; font-weight: 500;
+  margin-bottom: 1.2rem; max-width: 500px;
 }
 
 /* ===== HERO AUTHORITY LINE ===== */
@@ -757,6 +758,7 @@ ul { list-style: none; }
   .hero-cta { justify-content: center; }
   .hero-stats { justify-content: center; }
   .trust-bar { justify-content: center; }
+  .hero-authority { font-size: 0.82rem; }
   .about-grid { grid-template-columns: 1fr; }
   .skills-grid { grid-template-columns: repeat(2, 1fr); }
   .services-grid { grid-template-columns: repeat(2, 1fr); }
@@ -768,15 +770,34 @@ ul { list-style: none; }
   .pricing-grid { grid-template-columns: 1fr; }
   .pricing-popular { transform: none; }
   .problems-grid { grid-template-columns: repeat(2, 1fr); }
+  .entry-box { flex-direction: column; gap: 2rem; }
+  .entry-options { flex-direction: row; }
+  .section { padding: 80px 0; }
 }
 
 @media (max-width: 600px) {
-  .hero-cta { flex-direction: column; align-items: center; }
+  .hero { padding: 100px 6% 50px; }
+  .hero-content h1 { font-size: 2.4rem; }
+  .hero-sub { font-size: 1rem; }
+  .hero-cta { flex-direction: column; align-items: center; width: 100%; }
+  .hero-cta .btn-primary,
+  .hero-cta .btn-secondary { width: 100%; text-align: center; padding: 16px 24px; }
+  .hero-stats { gap: 1.5rem; }
   .skills-grid { grid-template-columns: 1fr; }
   .services-grid { grid-template-columns: 1fr; }
   .about-cards { grid-template-columns: 1fr; }
   .nav-links { gap: 1rem; }
-  .code-card { width: 100%; }
-  .problems-grid { grid-template-columns: 1fr; }
   .delivery-card { min-width: unset; width: 100%; }
+  .problems-grid { grid-template-columns: 1fr; }
+  .entry-options { flex-direction: column; }
+  .entry-strip { flex-direction: column; text-align: center; gap: 1rem; padding: 16px 6%; }
+  .entry-strip span { font-size: 0.82rem; line-height: 1.7; }
+  .impact-numbers { gap: 0.4rem; }
+  .impact-numbers span { font-size: 0.75rem; }
+  .project-card, .service-card { padding: 1.5rem; }
+  .pricing-card { padding: 1.8rem; }
+  .section { padding: 70px 0; }
+  .section-title { font-size: 1.6rem; margin-bottom: 2.5rem; }
+  .contact-box { padding: 1.5rem; }
+  .entry-box { padding: 2rem 1.5rem; }
 }
