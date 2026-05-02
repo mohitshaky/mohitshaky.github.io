@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mohit | Java Backend, API &amp; Performance Engineer for Hire</title>
+  <!-- SEO -->
+  <meta name="description" content="Hire Mohit — 6+ years Java/Spring Boot backend developer. Expert in Microservices, Kafka, BPMN, REST APIs, performance tuning &amp; database optimization. Available for freelance worldwide."/>
+  <meta name="keywords" content="Java developer freelance, Spring Boot developer, Microservices developer, Kafka developer, Kafka tuning, BPMN Flowable, REST API developer India, backend developer for hire, JVM performance tuning, database optimization, MongoDB performance, MySQL optimization, API performance, portfolio website developer, business website India"/>
+  <meta name="author" content="Mohit"/>
+  <meta property="og:title" content="Mohit | Java Backend &amp; Performance Engineer for Hire"/>
+  <meta property="og:description" content="6+ years building scalable backend systems. Spring Boot, Kafka, Microservices, BPMN, JVM &amp; Kafka performance tuning. Available for freelance."/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://mohitshaky.github.io"/>
+  <meta property="og:image" content="https://img.shields.io/badge/Mohit-Java%20Backend%20Developer-1a73e8?style=for-the-badge&logo=java&logoColor=white"/>
+  <link rel="canonical" href="https://mohitshaky.github.io"/>
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%231a73e8'/><text y='68' x='50' text-anchor='middle' font-size='52' font-family='Inter,sans-serif' font-weight='800' fill='white'>M</text></svg>"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="navbar">
+    <div class="nav-brand">Mohit<span>.</span></div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="https://linkedin.com/in/mohit-shakya-9ab944110" target="_blank" class="btn-github">&#128101; LinkedIn</a></li>
+      <li><a href="https://github.com/mohitshaky" target="_blank" class="btn-github">&#128025; GitHub</a></li>
+      <li><a href="#contact" class="btn-nav">Hire Me</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <p class="hero-tag">&#128994; Available for Freelance — 2026</p>
+      <h1>Hi, I'm <span>Mohit</span></h1>
+      <h2>Backend, API &amp; Performance Engineer</h2>
+      <p class="hero-desc">
+        6+ years building robust, scalable backend systems with Java, Spring Boot, Microservices, and Kafka.
+        I build fast, production-ready APIs — and fix slow ones too.
+        From architecture to Kafka tuning to database query optimization.
+      </p>
+      <div class="hero-cta">
+        <a href="#contact" class="btn-primary">Let's Work Together</a>
+        <a href="#projects" class="btn-secondary">View Projects</a>
+        <a href="https://linkedin.com/in/mohit-shakya-9ab944110" target="_blank" class="btn-cv">&#128196; View LinkedIn Profile</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><span>6+</span><p>Years Experience</p></div>
+        <div class="stat"><span>Aug 2019</span><p>Working Since</p></div>
+        <div class="stat"><span>10+</span><p>Enterprise Systems</p></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="avatar-card">
+        <div class="avatar-photo-wrap">
+          <!-- Replace photo.jpg with your real photo later -->
+          <img src="photo.jpg" alt="Mohit" class="avatar-photo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+          <div class="avatar-circle avatar-fallback">MS</div>
+        </div>
+        <div class="avatar-info">
+          <strong>Mohit</strong>
+          <span>Backend Developer · India</span>
+          <span style="font-size:0.75rem;color:var(--text-muted);">Telecom &amp; Banking Domain</span>
+          <div class="avatar-badges">
+            <span class="badge-green">&#128994; Available Now</span>
+            <span class="badge-blue">&#9889; Fast Delivery</span>
+            <span class="badge-orange">&#128200; Perf Tuning</span>
+          </div>
+        </div>
+      </div>
+      <div class="code-card">
+        <div class="code-header">
+          <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+          <span class="code-title">SubscriptionController.java</span>
+        </div>
+        <pre class="code-body"><span class="c-blue">@RestController</span>
+<span class="c-blue">@RequestMapping</span>(<span class="c-green">"/api/v1"</span>)
+<span class="c-blue">public class</span> <span class="c-yellow">SubscriptionController</span> {
+
+  <span class="c-blue">@Autowired</span>
+  <span class="c-blue">private</span> SubscriptionService service;
+
+  <span class="c-blue">@PostMapping</span>(<span class="c-green">"/subscribe"</span>)
+  <span class="c-blue">public</span> ResponseEntity&lt;?&gt; subscribe(
+    <span class="c-blue">@RequestBody</span> SubscribeRequest req) {
+    <span class="c-blue">return</span> ResponseEntity
+      .ok(service.process(req));
+  }
+}</pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="section about" id="about">
+    <div class="container">
+      <h2 class="section-title">About <span>Me</span></h2>
+      <div class="about-grid">
+        <div class="about-text">
+          <p>
+            I'm a <strong>Backend Developer</strong> with over <strong>6 years</strong> of experience building
+            enterprise-grade systems in the <strong>Telecom</strong> and <strong>Banking/FinTech</strong> domains.
+            I specialize in <strong>Java/Spring Boot microservices</strong>, event-driven architectures
+            with <strong>Kafka</strong>, workflow automation using <strong>BPMN/Flowable</strong>,
+            and both SQL and NoSQL databases.
+          </p>
+          <p>
+            I've built production systems handling thousands of daily transactions — from event-driven
+            provisioning pipelines to subscription lifecycle engines. I bring the same enterprise standards to every
+            freelance project: clean architecture, proper error handling, full test coverage, and documentation.
+          </p>
+          <ul class="about-list">
+            <li>&#9989; Telecom &amp; Banking domain expertise</li>
+            <li>&#9989; Microservice architecture design</li>
+            <li>&#9989; Event-driven systems with Kafka</li>
+            <li>&#9989; BPMN workflow automation (Flowable)</li>
+            <li>&#9989; Database design + query performance tuning</li>
+            <li>&#9989; API performance diagnosis &amp; JVM optimization</li>
+            <li>&#9989; Kafka consumer lag &amp; throughput tuning</li>
+          </ul>
+        </div>
+        <div class="about-cards">
+          <div class="info-card"><div class="info-icon">&#127919;</div><h4>Focused</h4><p>Delivering clean backend solutions tailored to your business needs</p></div>
+          <div class="info-card"><div class="info-icon">&#9889;</div><h4>Fast Delivery</h4><p>Efficient development with clear milestones and timely delivery</p></div>
+          <div class="info-card"><div class="info-icon">&#128274;</div><h4>Reliable</h4><p>Production-ready code with security, error handling &amp; monitoring</p></div>
+          <div class="info-card"><div class="info-icon">&#129309;</div><h4>Collaborative</h4><p>Clear communication and regular updates throughout the project</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section class="section skills-section" id="skills">
+    <div class="container">
+      <h2 class="section-title">Technical <span>Skills</span></h2>
+      <div class="skills-grid">
+        <div class="skill-group">
+          <h3>&#128187; Languages &amp; Frameworks</h3>
+          <div class="skill-tags">
+            <span>Java</span><span>Spring Boot</span><span>Spring MVC</span><span>Spring Security</span><span>Hibernate / JPA</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>&#128279; Microservices &amp; Messaging</h3>
+          <div class="skill-tags">
+            <span>Microservices</span><span>Apache Kafka</span><span>REST APIs</span><span>Spring Cloud</span><span>Feign Client</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>&#9881;&#65039; Workflow &amp; BPM</h3>
+          <div class="skill-tags">
+            <span>BPMN 2.0</span><span>Flowable</span><span>Process Automation</span><span>JavaDelegate</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>&#128452; Databases</h3>
+          <div class="skill-tags">
+            <span>MongoDB</span><span>MySQL</span><span>PostgreSQL</span><span>Redis</span><span>Query Optimization</span><span>Indexing Strategy</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>&#128295; DevOps &amp; Cloud</h3>
+          <div class="skill-tags">
+            <span>Docker</span><span>Kubernetes</span><span>Helm</span><span>Git</span><span>Gradle</span><span>Maven</span><span>Jenkins</span><span>Linux</span><span>Swagger / OpenAPI</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>&#9889; Performance Engineering</h3>
+          <div class="skill-tags">
+            <span>JVM Tuning</span><span>Kafka Throughput Tuning</span><span>Consumer Lag Fix</span><span>Slow Query Analysis</span><span>Connection Pool Optimization</span><span>API Latency Profiling</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="section services" id="services">
+    <div class="container">
+      <h2 class="section-title">What I <span>Offer</span></h2>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon">&#128296;</div>
+          <h3>REST API Development</h3>
+          <p>Design and build robust, well-documented RESTful APIs using Spring Boot with proper authentication, versioning, error handling, and Swagger docs.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">&#127959;&#65039;</div>
+          <h3>Microservices Architecture</h3>
+          <p>Build new systems or break down monoliths using scalable microservice patterns with service discovery, circuit breakers, load balancing, and resilience.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">&#128232;</div>
+          <h3>Event-Driven Systems</h3>
+          <p>Build real-time, asynchronous systems using Apache Kafka — producers, consumers, topic design, partition strategy, and reliable message streaming at scale.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">&#128203;</div>
+          <h3>Workflow Automation (BPMN)</h3>
+          <p>Automate complex business processes using BPMN/Flowable — approvals, order flows, provisioning pipelines, notifications, and retry handling with JavaDelegate.</p>
+        </div>
+        <div class="service-card perf-card">
+          <div class="service-icon">&#9889;</div>
+          <h3>API &amp; JVM Performance Tuning</h3>
+          <p>Diagnose and fix slow APIs, high latency, memory leaks, and JVM bottlenecks. Thread pool tuning, connection pool sizing, GC optimization, and profiling.</p>
+        </div>
+        <div class="service-card perf-card">
+          <div class="service-icon">&#128200;</div>
+          <h3>Kafka Fine-Tuning</h3>
+          <p>Fix consumer lag, optimize throughput, tune partition counts, replication factor, batch size, and linger settings for high-volume Kafka pipelines.</p>
+        </div>
+        <div class="service-card perf-card">
+          <div class="service-icon">&#128452;</div>
+          <h3>Database Performance Optimization</h3>
+          <p>Analyze slow queries, design index strategies, optimize MongoDB aggregations and MySQL joins. Fix N+1 problems, tune connection pools and write patterns.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">&#128269;</div>
+          <h3>Backend Audit &amp; Consulting</h3>
+          <p>Deep-dive review of your backend — architecture, API design, security gaps, performance bottlenecks — with a written report and concrete action plan.</p>
+        </div>
+        <div class="service-card web-card">
+          <div class="service-icon">&#127760;</div>
+          <h3>Portfolio &amp; Business Websites</h3>
+          <p>Clean, fast, mobile-friendly websites — developer portfolios, freelancer pages, business landing pages. Delivered as static sites, ready to host on GitHub Pages or Netlify for free.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section class="section projects" id="projects">
+    <div class="container">
+      <h2 class="section-title">Featured <span>Projects</span></h2>
+      <div class="projects-grid">
+        <div class="project-card">
+          <div class="project-header">
+            <span class="project-tag">BPMN</span>
+            <span class="project-tag">Flowable</span>
+            <span class="project-tag">Kafka</span>
+          </div>
+          <h3>Subscription Workflow Service</h3>
+          <p>Event-driven BPMN process orchestration for SaaS subscription lifecycle — subscribe → validate → provision → activate → notify. Flowable JavaDelegate pattern, Kafka event consumers, MongoDB process history, Gradle build.</p>
+          <div class="impact-row">
+            <span class="impact">&#9881; BPMN Delegates</span>
+            <span class="impact">&#128240; Kafka Listeners</span>
+            <span class="impact">&#128196; MongoDB Queries</span>
+          </div>
+          <div class="project-tech">
+            <span>Java 17</span><span>Spring Boot 3</span><span>Flowable</span><span>Kafka</span><span>MongoDB</span><span>Gradle</span>
+          </div>
+          <a href="https://github.com/mohitshaky/subscription-workflow-service" target="_blank" class="project-link">&#128025; View on GitHub</a>
+        </div>
+        <div class="project-card">
+          <div class="project-header">
+            <span class="project-tag">BPMN</span>
+            <span class="project-tag">Kafka</span>
+            <span class="project-tag">Order Lifecycle</span>
+          </div>
+          <h3>Order Lifecycle BPMN — Fulfillment Service</h3>
+          <p>Enterprise order orchestration — Flowable BPMN drives order lifecycle (validate → provision → update status → notify customer). Kafka events from downstream systems complete Flowable user tasks. Multi-tenancy headers, distributed tracing, MongoDB persistence. Mirrors real telecom/banking production systems.</p>
+          <div class="impact-row">
+            <span class="impact">&#9881; Flowable Delegates</span>
+            <span class="impact">&#128240; 4 Kafka Topics</span>
+            <span class="impact">&#127959; Multi-Tenancy</span>
+          </div>
+          <div class="project-tech">
+            <span>Java 17</span><span>Spring Boot 3</span><span>Flowable</span><span>Kafka</span><span>MongoDB</span><span>Gradle</span>
+          </div>
+          <a href="https://github.com/mohitshaky/order-lifecycle-bpmn" target="_blank" class="project-link">&#128025; View on GitHub</a>
+        </div>
+        <div class="project-card">
+          <div class="project-header">
+            <span class="project-tag">BPMN</span>
+            <span class="project-tag">Workflow</span>
+          </div>
+          <h3>Workflow Approval Engine</h3>
+          <p>Production-ready workflow backend with configurable multi-step approval processes, OAuth2 security, email notifications, Redis caching, Flyway migrations, and full Docker/K8s deployment support.</p>
+          <div class="impact-row">
+            <span class="impact">&#128203; Multi-step workflows</span>
+            <span class="impact">&#128640; Docker + K8s ready</span>
+            <span class="impact">&#128274; OAuth2</span>
+          </div>
+          <div class="project-tech">
+            <span>Java 21</span><span>Spring Boot 3</span><span>PostgreSQL</span><span>Redis</span><span>Docker</span>
+          </div>
+          <a href="https://github.com/mohitshaky/workflow-approval-engine" target="_blank" class="project-link">&#128025; View on GitHub</a>
+        </div>
+        <div class="project-card">
+          <div class="project-header">
+            <span class="project-tag">Kafka</span>
+            <span class="project-tag">MongoDB</span>
+            <span class="project-tag">Event-Driven</span>
+          </div>
+          <h3>Banking Account Event Service</h3>
+          <p>Event-driven banking service — account operations (deposit, withdraw, transfer) publish Kafka events, consumers process them into MongoDB audit logs. All Kafka topics and configs driven by environment variables.</p>
+          <div class="impact-row">
+            <span class="impact">&#128240; Kafka Producer/Consumer</span>
+            <span class="impact">&#128196; MongoDB Audit Trail</span>
+            <span class="impact">&#128260; Async Event Pipeline</span>
+          </div>
+          <div class="project-tech">
+            <span>Java 17</span><span>Spring Boot 3</span><span>Kafka</span><span>MongoDB</span><span>Gradle</span>
+          </div>
+          <a href="https://github.com/mohitshaky/banking-account-service" target="_blank" class="project-link">&#128025; View on GitHub</a>
+        </div>
+        <div class="project-card">
+          <div class="project-header">
+            <span class="project-tag">REST API</span>
+            <span class="project-tag">JWT</span>
+            <span class="project-tag">MySQL</span>
+          </div>
+          <h3>Telecom Subscription Service</h3>
+          <p>Production-style REST API for telecom plan management — subscribe, upgrade, cancel with business validations (duplicate prevention, status checks). JWT auth, BCrypt, MySQL, full Swagger docs.</p>
+          <div class="impact-row">
+            <span class="impact">&#128274; JWT + Spring Security</span>
+            <span class="impact">&#128222; Prepaid &amp; Postpaid Plans</span>
+            <span class="impact">&#9989; Full test coverage</span>
+          </div>
+          <div class="project-tech">
+            <span>Java 17</span><span>Spring Boot 3</span><span>MySQL</span><span>JWT</span><span>Gradle</span>
+          </div>
+          <a href="https://github.com/mohitshaky/telecom-subscription-service" target="_blank" class="project-link">&#128025; View on GitHub</a>
+        </div>
+        <div class="project-card">
+          <div class="project-header">
+            <span class="project-tag">Frontend</span>
+            <span class="project-tag">Fintech UI</span>
+            <span class="project-tag">JavaScript</span>
+          </div>
+          <h3>Banking Dashboard UI</h3>
+          <p>Production-style fintech dashboard — account summaries, live transaction history with filters, Canvas API charts (no Chart.js), CSV export, pagination. Pure HTML/CSS/JS — zero dependencies. Designed as the frontend layer for banking-account-service.</p>
+          <div class="impact-row">
+            <span class="impact">&#128200; Canvas Charts</span>
+            <span class="impact">&#128196; CSV Export</span>
+            <span class="impact">&#128241; Fully Responsive</span>
+          </div>
+          <div class="project-tech">
+            <span>HTML5</span><span>CSS3</span><span>JavaScript</span><span>Canvas API</span>
+          </div>
+          <div style="display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:1rem;">
+            <a href="https://mohitshaky.github.io/banking-dashboard" target="_blank" class="project-link">&#127760; Live Demo</a>
+            <a href="https://github.com/mohitshaky/banking-dashboard" target="_blank" class="project-link" style="background:rgba(255,255,255,0.05);">&#128025; GitHub</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW I WORK -->
+  <section class="section how-i-work" id="process">
+    <div class="container">
+      <h2 class="section-title">How I <span>Work</span></h2>
+      <p class="section-sub">A simple, transparent process — so you always know what's happening</p>
+      <div class="process-steps">
+        <div class="process-step">
+          <div class="step-num">01</div>
+          <div class="step-icon">&#128172;</div>
+          <h3>Discovery Call</h3>
+          <p>We discuss your requirements, goals, and constraints. I ask the right questions to fully understand what you need.</p>
+        </div>
+        <div class="process-arrow">&#8594;</div>
+        <div class="process-step">
+          <div class="step-num">02</div>
+          <div class="step-icon">&#128196;</div>
+          <h3>Proposal &amp; Plan</h3>
+          <p>I send a clear scope document with timeline, milestones, and fixed price. No surprises.</p>
+        </div>
+        <div class="process-arrow">&#8594;</div>
+        <div class="process-step">
+          <div class="step-num">03</div>
+          <div class="step-icon">&#128187;</div>
+          <h3>Build &amp; Update</h3>
+          <p>I develop in sprints with regular check-ins. You see progress, not just a final delivery.</p>
+        </div>
+        <div class="process-arrow">&#8594;</div>
+        <div class="process-step">
+          <div class="step-num">04</div>
+          <div class="step-icon">&#128640;</div>
+          <h3>Deliver &amp; Support</h3>
+          <p>Tested, documented, and deployed. I provide 2 weeks of free post-delivery support.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY WORK WITH ME -->
+  <section class="section testimonials" id="testimonials">
+    <div class="container">
+      <h2 class="section-title">Why Work <span>With Me</span></h2>
+      <p class="section-sub">6+ years in enterprise — I bring the same quality to your project</p>
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <div class="why-icon">&#128269;</div>
+          <h3>Enterprise-Grade Code</h3>
+          <p>I've built production systems handling thousands of daily transactions in telecom and banking domains. Your project gets the same standards — clean architecture, proper error handling, full test coverage.</p>
+        </div>
+        <div class="testimonial-card">
+          <div class="why-icon">&#9889;</div>
+          <h3>Performance-First Mindset</h3>
+          <p>I don't just build features — I think about latency, throughput, and scale from day one. Kafka lag, slow queries, JVM bottlenecks — I've fixed these in real production environments.</p>
+        </div>
+        <div class="testimonial-card">
+          <div class="why-icon">&#128172;</div>
+          <h3>Clear Communication</h3>
+          <p>You'll always know where your project stands. I share progress updates, ask the right questions upfront, and flag blockers early — no surprises at delivery.</p>
+        </div>
+        <div class="testimonial-card">
+          <div class="why-icon">&#128640;</div>
+          <h3>Ready to Run Code</h3>
+          <p>I deliver working code with Swagger docs, README, environment configs, and test cases — not just a zip file. You can run it, understand it, and extend it from day one.</p>
+        </div>
+      </div>
+      <div class="first-client-cta">
+        <p>&#127775; <strong>Currently open to new freelance projects</strong> — I offer a <strong>free 30-min consultation</strong> to understand your requirements before any commitment.</p>
+        <a href="#contact" class="btn-primary">Book Free Consultation</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="section pricing" id="pricing">
+    <div class="container">
+      <h2 class="section-title">Simple <span>Pricing</span></h2>
+      <p class="section-sub">Transparent rates — no hidden costs. Pick what fits your project.</p>
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <div class="pricing-label">Starter</div>
+          <div class="pricing-price">$100<span>/project</span></div>
+          <p class="pricing-desc">Best for small, well-defined tasks</p>
+          <ul class="pricing-features">
+            <li>&#9989; Single REST API or module</li>
+            <li>&#9989; Up to 5 endpoints</li>
+            <li>&#9989; Basic auth (JWT)</li>
+            <li>&#9989; Swagger documentation</li>
+            <li>&#9989; Performance review included</li>
+            <li>&#9989; Portfolio / landing page website</li>
+            <li>&#9989; 1 week delivery</li>
+            <li>&#9989; 1 week support</li>
+          </ul>
+          <a href="#contact" class="btn-secondary">Get Started</a>
+        </div>
+        <div class="pricing-card pricing-popular">
+          <div class="pricing-badge">&#128293; Most Popular</div>
+          <div class="pricing-label">Professional</div>
+          <div class="pricing-price">$350<span>/project</span></div>
+          <p class="pricing-desc">Best for mid-size backend projects</p>
+          <ul class="pricing-features">
+            <li>&#9989; Full microservice or workflow</li>
+            <li>&#9989; Database design + index tuning</li>
+            <li>&#9989; Kafka / BPMN integration</li>
+            <li>&#9989; API performance optimization</li>
+            <li>&#9989; Docker deployment</li>
+            <li>&#9989; 2–3 weeks delivery</li>
+            <li>&#9989; 2 weeks support</li>
+          </ul>
+          <a href="#contact" class="btn-primary">Get Started</a>
+        </div>
+        <div class="pricing-card">
+          <div class="pricing-label">Enterprise</div>
+          <div class="pricing-price">Custom<span>/project</span></div>
+          <p class="pricing-desc">For large-scale or ongoing projects</p>
+          <ul class="pricing-features">
+            <li>&#9989; Full backend architecture</li>
+            <li>&#9989; Multiple microservices</li>
+            <li>&#9989; CI/CD + Kubernetes setup</li>
+            <li>&#9989; Observability &amp; monitoring</li>
+            <li>&#9989; Flexible timeline</li>
+            <li>&#9989; Ongoing retainer available</li>
+          </ul>
+          <a href="#contact" class="btn-secondary">Let's Talk</a>
+        </div>
+      </div>
+      <p class="pricing-note">&#128336; Prefer hourly? Rate: <strong>$25–40/hr</strong> depending on scope &nbsp;|&nbsp; All prices in USD</p>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="section contact" id="contact">
+    <div class="container">
+      <h2 class="section-title">Get In <span>Touch</span></h2>
+      <p class="contact-sub">Have a project in mind? Let's discuss how I can help build your backend.</p>
+      <div class="contact-box">
+        <div class="contact-info">
+          <h3>Let's build something great</h3>
+          <p>I'm currently available for freelance work. Whether it's a new API, a microservice refactor, or a complete backend — I'd love to hear about your project.</p>
+          <div class="contact-items">
+            <div class="contact-item"><span>&#128231;</span><p><a href="mailto:mohitshakya797@gmail.com">mohitshakya797@gmail.com</a></p></div>
+            <div class="contact-item"><span>&#128222;</span><p><a href="tel:+919907890511">+91 9907890511</a></p></div>
+            <div class="contact-item"><span>&#128101;</span><p><a href="https://linkedin.com/in/mohit-shakya-9ab944110" target="_blank">linkedin.com/in/mohit-shakya</a></p></div>
+            <div class="contact-item"><span>&#128025;</span><p><a href="https://github.com/mohitshaky" target="_blank">github.com/mohitshaky</a></p></div>
+            <div class="contact-item"><span>&#127757;</span><p>Remote — Worldwide</p></div>
+            <div class="contact-item"><span>&#8987;</span><p>Response time: Within 24 hours</p></div>
+          </div>
+        </div>
+        <form class="contact-form" id="contactForm" action="https://formspree.io/f/mwvypewg" method="POST">
+          <input type="text"  id="from_name"    name="from_name"    placeholder="Your Name"     required />
+          <input type="email" id="from_email"   name="from_email"   placeholder="Your Email"    required />
+          <input type="text"  id="project_type" name="project_type" placeholder="Project Type (e.g. REST API, Kafka Tuning, Website)" />
+          <textarea           id="message"      name="message"      placeholder="Describe your project..." rows="5" required></textarea>
+          <button type="submit" class="btn-primary" id="submitBtn">Send Message &#128640;</button>
+          <p id="formStatus" style="font-size:0.85rem;text-align:center;margin-top:0.5rem;display:none;"></p>
+          <p style="font-size:0.8rem;color:var(--text-muted);text-align:center;margin-top:0.5rem;">
+            Or email directly: <a href="mailto:mohitshakya797@gmail.com" style="color:var(--primary)">mohitshakya797@gmail.com</a>
+          </p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>&#169; 2026 Mohit — Backend, API &amp; Performance Engineer &nbsp;|&nbsp;
+      <a href="mailto:mohitshakya797@gmail.com" style="color:#79b8ff">mohitshakya797@gmail.com</a> &nbsp;|&nbsp;
+      <a href="https://linkedin.com/in/mohit-shakya-9ab944110" target="_blank" style="color:#79b8ff">LinkedIn</a> &nbsp;|&nbsp;
+      <a href="https://github.com/mohitshaky" target="_blank" style="color:#79b8ff">GitHub</a>
+    </p>
+  </footer>
+
+  <!-- WHATSAPP FLOATING BUTTON -->
+  <a href="https://wa.me/919907890511?text=Hi%20Mohit%2C%20I%20visited%20your%20portfolio%20and%20I%27d%20like%20to%20discuss%20a%20project." 
+     target="_blank" class="whatsapp-btn" title="Chat on WhatsApp">
+    <svg viewBox="0 0 24 24" width="28" height="28" fill="white">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+      <path d="M12 0C5.373 0 0 5.373 0 12c0 2.114.554 4.1 1.523 5.822L.057 23.57a.5.5 0 0 0 .614.614l5.748-1.466A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22a9.948 9.948 0 0 1-5.073-1.383l-.364-.215-3.759.959.976-3.668-.236-.375A9.944 9.944 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
+    </svg>
+  </a>
+
+  <!-- SCROLL TO TOP -->
+  <button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">&#8679;</button>
+
+  <script>
+    // Formspree AJAX submit — no page redirect
+    document.getElementById('contactForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const btn    = document.getElementById('submitBtn');
+      const status = document.getElementById('formStatus');
+
+      btn.disabled    = true;
+      btn.textContent = 'Sending...';
+      status.style.display = 'none';
+
+      try {
+        const res = await fetch(this.action, {
+          method: 'POST',
+          body: new FormData(this),
+          headers: { 'Accept': 'application/json' }
+        });
+        if (res.ok) {
+          status.style.display = 'block';
+          status.style.color   = '#28c864';
+          status.textContent   = '✅ Message sent! I\'ll reply within 24 hours.';
+          this.reset();
+        } else {
+          throw new Error('Server error');
+        }
+      } catch {
+        status.style.display = 'block';
+        status.style.color   = '#ff5f57';
+        status.textContent   = '❌ Failed to send. Please email directly: mohitshakya797@gmail.com';
+      }
+      btn.disabled    = false;
+      btn.textContent = 'Send Message 🚀';
+    });
+  </script>
+
+  <script>
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(s => {
+        if (window.scrollY >= s.offsetTop - 80) current = s.getAttribute('id');
+      });
+      navLinks.forEach(a => {
+        a.classList.remove('active');
+        if (a.getAttribute('href') === '#' + current) a.classList.add('active');
+      });
+      // scroll-to-top visibility
+      document.getElementById('scrollTop').classList.toggle('visible', window.scrollY > 400);
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.skill-group, .service-card, .project-card, .info-card, .process-step, .testimonial-card, .pricing-card').forEach(el => {
+      el.classList.add('reveal');
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>
