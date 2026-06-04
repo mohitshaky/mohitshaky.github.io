@@ -841,3 +841,15 @@ ul { list-style: none; }
   }
   .reveal { opacity: 1; transform: none; }
 }
+
+/* LinkedIn floating button (stacked above WhatsApp) */
+.linkedin-btn {
+  position: fixed; bottom: 148px; right: 24px; z-index: 999;
+  width: 52px; height: 52px; border-radius: 50%;
+  background: #0A66C2;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 16px rgba(10,102,194,0.5);
+  transition: transform 0.2s, box-shadow 0.2s;
+  text-decoration: none;
+}
+.linkedin-btn:hover { transform: scale(1.1); box-shadow: 0 6px 20px rgba(10,102,194,0.6); }
