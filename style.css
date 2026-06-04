@@ -841,3 +841,11 @@ ul { list-style: none; }
   }
   .reveal { opacity: 1; transform: none; }
 }
+
+/* LinkedIn profile badge */
+.linkedin-badge-wrap {
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border);
+}
+.linkedin-badge-wrap .badge-base { display: inline-block; }
