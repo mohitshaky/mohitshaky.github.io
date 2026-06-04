@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html,body { width:1200px; height:630px; overflow:hidden; }
+  body {
+    font-family:'Inter',sans-serif;
+    background:
+      radial-gradient(900px 500px at 88% 18%, rgba(26,115,232,0.32) 0%, rgba(26,115,232,0) 60%),
+      radial-gradient(700px 420px at 8% 95%, rgba(13,71,161,0.45) 0%, rgba(13,71,161,0) 65%),
+      linear-gradient(135deg, #0b1024 0%, #101a36 55%, #0d2148 100%);
+    color:#fff;
+    position:relative;
+    display:flex; align-items:center;
+  }
+  /* fine grid texture */
+  .grid {
+    position:absolute; inset:0;
+    background-image:
+      linear-gradient(rgba(121,184,255,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(121,184,255,0.05) 1px, transparent 1px);
+    background-size:44px 44px;
+    mask-image:radial-gradient(800px 520px at 60% 40%, #000 30%, transparent 90%);
+    -webkit-mask-image:radial-gradient(800px 520px at 60% 40%, #000 30%, transparent 90%);
+  }
+  /* top accent bar */
+  .bar { position:absolute; top:0; left:0; right:0; height:8px;
+    background:linear-gradient(90deg, #1a73e8 0%, #79b8ff 50%, #0d47a1 100%); }
+
+  .left { padding:0 0 0 76px; width:730px; position:relative; z-index:2; }
+
+  .avail {
+    display:inline-flex; align-items:center; gap:10px;
+    background:rgba(40,200,100,0.12); border:1px solid rgba(40,200,100,0.45);
+    color:#5ee79a; font-size:18px; font-weight:600;
+    padding:8px 18px; border-radius:50px; margin-bottom:22px; letter-spacing:0.2px;
+  }
+  .dot { width:11px; height:11px; border-radius:50%; background:#28c864;
+    box-shadow:0 0 12px rgba(40,200,100,0.9); }
+
+  h1 { font-size:62px; font-weight:900; line-height:1.08; letter-spacing:-1.2px; white-space:nowrap; }
+  h1 .blue { background:linear-gradient(90deg,#4d9aff,#79b8ff);
+    -webkit-background-clip:text; background-clip:text; color:transparent; }
+
+  .role { font-size:26px; font-weight:600; color:#aac4ee; margin-top:14px; letter-spacing:-0.3px; }
+  .role strong { color:#fff; }
+
+  .badges { display:flex; flex-wrap:wrap; gap:11px; margin-top:24px; max-width:660px; }
+  .badge {
+    font-size:17px; font-weight:600; color:#cfe2ff;
+    background:rgba(26,115,232,0.16); border:1px solid rgba(77,154,255,0.45);
+    padding:7px 16px; border-radius:9px;
+  }
+  .stats { display:flex; gap:42px; margin-top:28px; align-items:flex-start; }
+  .stat .num { font-size:30px; font-weight:800; color:#79b8ff; }
+  .stat .lbl { font-size:15px; color:#8fa3c8; font-weight:500; margin-top:2px; }
+
+  .url { margin-top:26px; font-size:19px; font-weight:600;
+    color:#6f86b0; letter-spacing:0.4px; }
+  .url span { color:#79b8ff; }
+
+  .right { position:absolute; right:86px; top:50%; transform:translateY(-50%); z-index:2; }
+  .photo-wrap {
+    width:330px; height:330px; border-radius:50%;
+    padding:7px;
+    background:linear-gradient(135deg,#1a73e8 0%,#79b8ff 50%,#0d47a1 100%);
+    box-shadow:0 0 70px rgba(26,115,232,0.55), 0 24px 60px rgba(0,0,0,0.45);
+  }
+  .photo {
+    width:100%; height:100%; border-radius:50%;
+    background:#f4f7ff url('mohit.jpg') no-repeat center 12%/118%;
+    border:5px solid #0b1024;
+  }
+  .ring { position:absolute; inset:-26px; border-radius:50%;
+    border:1.5px dashed rgba(121,184,255,0.35); }
+</style>
+</head>
+<body>
+  <div class="grid"></div>
+  <div class="bar"></div>
+
+  <div class="left">
+    <div class="avail"><span class="dot"></span> Available for Freelance — Remote Worldwide</div>
+    <h1>Mohit Shakya<br/><span class="blue">Java Backend Engineer</span></h1>
+    <p class="role">I build scalable <strong>APIs &amp; microservices</strong> —<br/>and fix slow systems.</p>
+    <div class="badges">
+      <span class="badge">Spring Boot</span>
+      <span class="badge">Kafka</span>
+      <span class="badge">Microservices</span>
+      <span class="badge">Performance Tuning</span>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="num">6+</div><div class="lbl">Years Experience</div></div>
+      <div class="stat"><div class="num">10+</div><div class="lbl">Enterprise Systems</div></div>
+      <div class="stat"><div class="num">24h</div><div class="lbl">Response Time</div></div>
+    </div>
+    <div class="url">&#127760; <span>mohitshaky.github.io</span></div>
+  </div>
+
+  <div class="right">
+    <div class="ring"></div>
+    <div class="photo-wrap"><div class="photo"></div></div>
+  </div>
+</body>
+</html>
