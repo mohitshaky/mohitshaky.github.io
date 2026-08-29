@@ -775,6 +775,45 @@
 
   <button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top" aria-label="Back to top">&#8679;</button>
 
+  <div class="geo-suggest" id="geoSuggest" role="complementary" aria-label="Region suggestion">
+    <p class="geo-text">
+      <strong>Looks like you&rsquo;re in India.</strong>
+      I price Indian engagements in rupees, with different terms &mdash; GST, UPI, and in-person work across Delhi NCR.
+      <a href="india.html">See the India page &#8594;</a>
+    </p>
+    <button class="geo-close" id="geoClose" aria-label="Dismiss">&times;</button>
+  </div>
+
+  <script>
+    // Suggest the rupee page to visitors whose device clock is set to Indian
+    // time. Timezone rather than an IP lookup: no external request, nothing to
+    // block, and no third party learning who reads this page.
+    (function () {
+      var IN_ZONES = ['Asia/Kolkata', 'Asia/Calcutta'];
+      var box = document.getElementById('geoSuggest');
+      var close = document.getElementById('geoClose');
+      if (!box || !close) return;
+
+      function dismissed() {
+        try { return localStorage.getItem('geoSuggestDismissed') === '1'; }
+        catch (e) { return false; }   // private mode: just show it
+      }
+
+      var zone = '';
+      try { zone = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (e) { zone = ''; }
+
+      if (IN_ZONES.indexOf(zone) !== -1 && !dismissed()) {
+        // Held back a moment so it does not compete with the hero on arrival.
+        setTimeout(function () { box.classList.add('visible'); }, 1800);
+      }
+
+      close.addEventListener('click', function () {
+        box.classList.remove('visible');
+        try { localStorage.setItem('geoSuggestDismissed', '1'); } catch (e) {}
+      });
+    })();
+  </script>
+
   <script>
     // Build contact links at runtime — keeps the address out of static HTML
     const CONTACT_EMAIL = ['mohitshakya797', 'gmail', 'com'].join(' ').replace(' ', '@').replace(' ', '.');

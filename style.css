@@ -1389,3 +1389,59 @@ ul { list-style: none; }
   padding-bottom: 1.25rem;
   border-bottom: 1px solid var(--border);
 }
+
+/* ------------------------------------------------------------------
+   Region suggestion
+   A suggestion, deliberately not a redirect. Silently rerouting a
+   visitor by location reads as concealment the moment anyone notices
+   it — and the whole reason the two pages are separate is that the
+   pricing has to survive being discovered.
+   ------------------------------------------------------------------ */
+.geo-suggest {
+  position: fixed;
+  left: 24px;
+  bottom: 24px;
+  z-index: 1200;
+  max-width: 340px;
+  display: none;
+  align-items: flex-start;
+  gap: 0.85rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--primary);
+  border-radius: var(--radius);
+  padding: 1rem 1.1rem;
+  box-shadow: var(--shadow-lg);
+  animation: geoIn 0.28s ease-out;
+}
+.geo-suggest.visible { display: flex; }
+@keyframes geoIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.geo-text { font-size: 0.85rem; line-height: 1.6; color: var(--text-muted); }
+.geo-text strong { display: block; color: var(--text); margin-bottom: 0.2rem; font-size: 0.88rem; }
+.geo-text a {
+  display: inline-block;
+  margin-top: 0.5rem;
+  color: var(--primary);
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(26,115,232,0.35);
+}
+.geo-text a:hover { border-bottom-color: var(--primary); }
+.geo-close {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 0 0 0.25rem;
+  flex: 0 0 auto;
+}
+.geo-close:hover { color: var(--text); }
+
+@media (max-width: 560px) {
+  .geo-suggest { left: 12px; right: 12px; bottom: 12px; max-width: none; }
+}

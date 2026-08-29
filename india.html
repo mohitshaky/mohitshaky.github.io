@@ -23,8 +23,10 @@
     <div class="nav-brand">Mohit<span>.</span></div>
     <ul class="nav-links">
       <li><a href="#engage">How I help</a></li>
+      <li><a href="#casework">Casework</a></li>
+      <li><a href="#projects">Code</a></li>
       <li><a href="#fees">Pricing</a></li>
-      <li><a href="#terms">Terms</a></li>
+      <li><a href="#faq">FAQ</a></li>
       <li><a href="Mohit-Shakya-Resume.pdf" class="btn-github btn-resume" download>Resume (PDF)</a></li>
       <li><a href="https://github.com/mohitshaky" target="_blank" rel="noopener noreferrer" class="btn-github">GitHub</a></li>
       <li><a href="#contact" class="btn-nav">Book a call</a></li>
@@ -67,6 +69,31 @@
     </div>
   </section>
 
+  <section class="problems-section" id="solutions">
+    <div class="container">
+      <p class="problems-intro">Why founders call</p>
+      <h2 class="section-title-dark">What usually brings <span style="color:#79b8ff">someone to me</span></h2>
+      <div class="problems-grid">
+        <div class="problem-card">
+          <h3>No senior backend person</h3>
+          <p>The team ships, but nobody has built at scale before. Decisions get made and nobody in the room knows what they will cost in eighteen months.</p>
+        </div>
+        <div class="problem-card">
+          <h3>It won&rsquo;t survive the next 10x</h3>
+          <p>What worked at a thousand users is buckling at fifty thousand. Usually the database access pattern and a queue that was never really a queue.</p>
+        </div>
+        <div class="problem-card">
+          <h3>Hiring backend engineers blind</h3>
+          <p>You need to hire two backend people and nobody on the founding team can tell a strong Java engineer from a confident one.</p>
+        </div>
+        <div class="problem-card">
+          <h3>Due diligence is coming</h3>
+          <p>A raise or an acquisition means someone technical is about to read your codebase. Better that I find it first.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="section services" id="engage">
     <div class="container">
       <h2 class="section-title">How I <span>help</span></h2>
@@ -102,6 +129,146 @@
             <li>BPMN workflow automation</li>
             <li>Tests, Docker and a runbook included</li>
           </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CASEWORK -->
+  <section class="section casework" id="casework">
+    <div class="container">
+      <h2 class="section-title">Selected <span>casework</span></h2>
+      <p class="section-sub">
+        Seven years on telecom and banking production systems. Client names withheld under NDA.
+      </p>
+
+      <!--
+        TODO — MOHIT: replace each "Outcome" line with real before/after numbers.
+        Same note as the international page; this is the highest-value edit on the site.
+      -->
+
+      <div class="case-list">
+        <div class="case-card">
+          <span class="case-domain">Tier-1 telecom &nbsp;·&nbsp; order management</span>
+          <h3>Orders piled up every time marketing ran a campaign</h3>
+          <p class="case-line"><strong>The problem.</strong> Fine at normal volume. The moment a campaign launched,
+            the order pipeline backed up and support started fixing things by hand.</p>
+          <p class="case-line"><strong>What I did.</strong> Traced the pipeline to find where events were really
+            queueing, rebuilt the consumer groups and partitioning around the correct key, moved slow downstream
+            calls off the poll loop, and added a retry topic so one bad message could no longer block a partition.</p>
+          <p class="case-line"><strong>Outcome.</strong> Campaign peaks absorbed without anyone intervening, and
+            stuck orders became an alert instead of a customer complaint.</p>
+          <p class="case-repo">Same pattern, public code: <a href="https://github.com/mohitshaky/order-lifecycle-bpmn" target="_blank" rel="noopener noreferrer">order-lifecycle-bpmn</a></p>
+        </div>
+
+        <div class="case-card">
+          <span class="case-domain">Banking &nbsp;·&nbsp; account events</span>
+          <h3>Nobody could prove the audit trail was complete</h3>
+          <p class="case-line"><strong>The problem.</strong> Answering one compliance question meant querying three
+            stores and reconciling them by hand, with no guarantee the result was right.</p>
+          <p class="case-line"><strong>What I did.</strong> Made consumers idempotent on a stable event ID, made the
+            write path append-only, and split the audit projection from the operational read model so either could
+            be rebuilt without touching the other.</p>
+          <p class="case-line"><strong>Outcome.</strong> History reconstructible from the event log alone.
+            Compliance questions answered from the projection instead of from an engineer&rsquo;s afternoon.</p>
+          <p class="case-repo">Same pattern, public code: <a href="https://github.com/mohitshaky/banking-account-service" target="_blank" rel="noopener noreferrer">banking-account-service</a></p>
+        </div>
+
+        <div class="case-card">
+          <span class="case-domain">Telecom &nbsp;·&nbsp; subscriptions</span>
+          <h3>Changing one business rule meant releasing six services</h3>
+          <p class="case-line"><strong>The problem.</strong> Subscribe, upgrade, suspend and cancel logic had spread
+            across services over several years. The actual sequence existed only in people&rsquo;s heads.</p>
+          <p class="case-line"><strong>What I did.</strong> Modelled the lifecycle as an explicit BPMN process so the
+            sequence became something you could read and review, kept the integration event-driven, and made every
+            transition individually traceable.</p>
+          <p class="case-line"><strong>Outcome.</strong> Rule changes became a process-definition edit rather than a
+            coordinated multi-service release.</p>
+          <p class="case-repo">Same pattern, public code: <a href="https://github.com/mohitshaky/subscription-workflow-service" target="_blank" rel="noopener noreferrer">subscription-workflow-service</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PUBLIC CODE -->
+  <section class="section projects" id="projects">
+    <div class="container">
+      <h2 class="section-title">Read the <span>code first</span></h2>
+      <p class="section-sub">
+        Working implementations of the patterns above, maintained in the open. Have your strongest engineer read
+        them before you commit to anything.
+      </p>
+      <div class="projects-grid">
+        <div class="project-card">
+          <div class="project-header">
+            <span class="project-tag">Kafka</span><span class="project-tag">BPMN</span><span class="project-tag">Multi-tenant</span>
+          </div>
+          <h3>Order Lifecycle Orchestration</h3>
+          <p>Telecom-shaped order fulfilment where the process definition is the source of truth, with asynchronous provisioning over Kafka.</p>
+          <div class="project-tech"><span>Java 17</span><span>Spring Boot 3</span><span>Flowable</span><span>Kafka</span><span>MongoDB</span></div>
+          <a href="https://github.com/mohitshaky/order-lifecycle-bpmn" target="_blank" rel="noopener noreferrer" class="project-link">View on GitHub</a>
+        </div>
+
+        <div class="project-card">
+          <div class="project-header">
+            <span class="project-tag">Event-Driven</span><span class="project-tag">Audit</span><span class="project-tag">Idempotency</span>
+          </div>
+          <h3>Banking Account Event Service</h3>
+          <p>Append-only account events with an audit projection rebuildable from the log, and consumers that survive redelivery without double-applying a transfer.</p>
+          <div class="project-tech"><span>Java 17</span><span>Spring Boot 3</span><span>Kafka</span><span>MongoDB</span></div>
+          <a href="https://github.com/mohitshaky/banking-account-service" target="_blank" rel="noopener noreferrer" class="project-link">View on GitHub</a>
+        </div>
+
+        <div class="project-card">
+          <div class="project-header">
+            <span class="project-tag">Redis</span><span class="project-tag">Kubernetes</span><span class="project-tag">Latency</span>
+          </div>
+          <h3>Offer &amp; Promo Engine</h3>
+          <p>Promotion eligibility on the checkout path, where cache design and rule ordering decide whether you make the latency budget.</p>
+          <div class="project-tech"><span>Java 17</span><span>Spring Boot 3</span><span>Redis</span><span>PostgreSQL</span><span>Kubernetes</span></div>
+          <a href="https://github.com/mohitshaky/offer-promo-engine" target="_blank" rel="noopener noreferrer" class="project-link">View on GitHub</a>
+        </div>
+
+        <div class="project-card">
+          <div class="project-header">
+            <span class="project-tag">Spring AI</span><span class="project-tag">pgvector</span><span class="project-tag">RAG</span>
+          </div>
+          <h3>Enterprise RAG Service</h3>
+          <p>Retrieval-augmented generation built as an ordinary Spring service &mdash; tenant isolation proved by test, a grounding policy that refuses rather than fabricates, per-tenant token budgets.</p>
+          <div class="project-tech"><span>Java 21</span><span>Spring Boot 3</span><span>Spring AI</span><span>PostgreSQL</span></div>
+          <a href="https://github.com/mohitshaky/enterprise-rag-service" target="_blank" rel="noopener noreferrer" class="project-link">View on GitHub</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="section how-i-work" id="process">
+    <div class="container">
+      <h2 class="section-title">How it <span>works</span></h2>
+      <div class="process-steps">
+        <div class="process-step">
+          <div class="step-num">01</div>
+          <h3>A call</h3>
+          <p>Thirty minutes on what you are building and where it hurts. Free, and I will tell you if it is not work I should take.</p>
+        </div>
+        <div class="process-arrow">&#8594;</div>
+        <div class="process-step">
+          <div class="step-num">02</div>
+          <h3>Written scope</h3>
+          <p>What I will do, what you get, the fixed fee, and what is out of scope. Agreed before anything starts.</p>
+        </div>
+        <div class="process-arrow">&#8594;</div>
+        <div class="process-step">
+          <div class="step-num">03</div>
+          <h3>Work you can see</h3>
+          <p>Commits land in your repository as I go. In person in NCR when a whiteboard beats a call.</p>
+        </div>
+        <div class="process-arrow">&#8594;</div>
+        <div class="process-step">
+          <div class="step-num">04</div>
+          <h3>Handover</h3>
+          <p>Findings, measurements and a runbook written down, so your team can carry it without me.</p>
         </div>
       </div>
     </div>
@@ -255,6 +422,87 @@
     </div>
   </section>
 
+  <section class="section faq" id="faq">
+    <div class="container">
+      <h2 class="section-title">Common <span>questions</span></h2>
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary>What does a &ldquo;fractional backend lead&rdquo; actually do?</summary>
+          <p>
+            The work a senior backend engineer does that is not writing code: deciding the architecture before you
+            build it, reviewing what the team ships, sitting on hiring panels so you stop guessing, keeping the
+            codebase in a state that survives due diligence, and telling you honestly where AI helps and where it
+            is a distraction. Ten to twelve hours a week, every week, so the context stays warm.
+          </p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Why not just hire an agency, or a full-time engineer?</summary>
+          <p>
+            An agency gives you a developer and an account manager, and the person you brief is not the person who
+            writes the code. A full-time senior backend lead in NCR is a salary plus ESOPs plus a three-month notice
+            period, which is a lot of commitment at seed stage. This sits between the two: one senior person, direct,
+            monthly, cancellable. When you genuinely need a full-time lead I will tell you, and I will help you hire
+            them.
+          </p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Is GST extra?</summary>
+          <p>
+            Yes. Every price on this page is exclusive of GST; 18% applies to Indian clients. If you are
+            GST-registered it is fully claimable as input credit, so the effective cost to you is the listed price.
+          </p>
+        </details>
+
+        <details class="faq-item">
+          <summary>How do payments work?</summary>
+          <p>
+            50% advance and the balance on milestone acceptance, Net 15. UPI, NEFT or Razorpay &mdash; whichever suits
+            your finance process. Retainers are invoiced monthly in advance.
+          </p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Do you work on site?</summary>
+          <p>
+            I am in Gurgaon, so yes when it is genuinely useful &mdash; kickoff, architecture sessions, hiring panels,
+            incident post-mortems. Anywhere in Gurugram, Delhi or Noida. The rest is remote, because a whiteboard is
+            worth a commute and a status update is not.
+          </p>
+        </details>
+
+        <details class="faq-item">
+          <summary>We are pre-revenue and the budget is small. Is it worth talking?</summary>
+          <p>
+            Start with the &#8377;40,000 Health Check. You get a written account of what is wrong with your backend and
+            what to do about it in priority order, and the fee comes off anything you book within thirty days. If
+            even that is out of reach right now, say so on the call &mdash; I would rather scope something down than
+            not have the conversation.
+          </p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Who owns the code?</summary>
+          <p>
+            You do. Full IP assignment on final payment &mdash; code, documentation, configuration. The one carve-out
+            is my own pre-existing reusable libraries, which are licensed to you for the delivered work rather than
+            assigned.
+          </p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Can you help us interview and hire backend engineers?</summary>
+          <p>
+            Yes, and it is one of the more valuable things in the fractional arrangement. I will write the role,
+            build a technical screen that tests what the job actually needs, sit on panels, and give you a straight
+            read afterwards. Seven years of production Java means I know what a strong answer sounds like.
+          </p>
+        </details>
+      </div>
+    </div>
+  </section>
+
   <section class="section contact" id="contact">
     <div class="container">
       <h2 class="section-title">Let&rsquo;s <span>talk</span></h2>
@@ -294,6 +542,45 @@
       <a href="index.html" style="color:#79b8ff">International site</a>
     </p>
   </footer>
+
+  <div class="geo-suggest" id="geoSuggest" role="complementary" aria-label="Region suggestion">
+    <p class="geo-text">
+      <strong>Not based in India?</strong>
+      This page covers Indian engagements in rupees. International engagements are scoped and priced differently.
+      <a href="index.html">See the international page &#8594;</a>
+    </p>
+    <button class="geo-close" id="geoClose" aria-label="Dismiss">&times;</button>
+  </div>
+
+  <script>
+    // Mirror of the suggestion on the international page: anyone whose clock
+    // is not on Indian time is probably on the wrong page. Suggestion only —
+    // never a redirect.
+    (function () {
+      var IN_ZONES = ['Asia/Kolkata', 'Asia/Calcutta'];
+      var box = document.getElementById('geoSuggest');
+      var close = document.getElementById('geoClose');
+      if (!box || !close) return;
+
+      function dismissed() {
+        try { return localStorage.getItem('geoSuggestDismissedIN') === '1'; }
+        catch (e) { return false; }
+      }
+
+      var zone = '';
+      try { zone = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (e) { zone = ''; }
+
+      // Only prompt when we are reasonably sure: a readable zone that is not Indian.
+      if (zone && IN_ZONES.indexOf(zone) === -1 && !dismissed()) {
+        setTimeout(function () { box.classList.add('visible'); }, 1800);
+      }
+
+      close.addEventListener('click', function () {
+        box.classList.remove('visible');
+        try { localStorage.setItem('geoSuggestDismissedIN', '1'); } catch (e) {}
+      });
+    })();
+  </script>
 
   <script>
     const CONTACT_EMAIL = ['mohitshakya797', 'gmail', 'com'].join(' ').replace(' ', '@').replace(' ', '.');
