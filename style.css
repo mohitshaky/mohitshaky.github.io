@@ -961,3 +961,86 @@ ul { list-style: none; }
 @media (max-width: 640px) {
   .case-card { padding: 1.5rem 1.35rem; }
 }
+
+/* Entry offer — the low-commitment first step above the pricing table */
+.entry-offer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+  background: var(--gradient);
+  color: #fff;
+  border-radius: var(--radius-lg);
+  padding: 2.25rem 2.5rem;
+  margin-bottom: 2.75rem;
+  box-shadow: var(--shadow-lg);
+}
+.entry-offer-left { flex: 1 1 420px; }
+.entry-offer-label {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: rgba(255,255,255,0.2);
+  padding: 4px 12px;
+  border-radius: 50px;
+  margin-bottom: 0.85rem;
+}
+.entry-offer h3 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: 0.65rem;
+  color: #fff;
+}
+.entry-offer p {
+  font-size: 0.92rem;
+  line-height: 1.75;
+  color: rgba(255,255,255,0.92);
+  margin: 0;
+}
+.entry-offer-right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  flex: 0 0 auto;
+}
+.entry-offer-right .btn-primary {
+  background: #fff;
+  color: var(--primary);
+  border-color: #fff;
+  white-space: nowrap;
+}
+.entry-offer-right .btn-primary:hover {
+  background: var(--bg-alt);
+  color: var(--primary-dark);
+  transform: translateY(-2px);
+}
+.entry-offer-note {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.85);
+}
+
+/* Three reassurance lines under the pricing table */
+.pricing-reassure {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.25rem;
+  margin-top: 2.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+}
+.pricing-reassure div {
+  font-size: 0.86rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+.pricing-reassure strong { color: var(--text); display: block; margin-bottom: 0.15rem; }
+
+@media (max-width: 640px) {
+  .entry-offer { padding: 1.75rem 1.4rem; text-align: center; }
+  .entry-offer-right { width: 100%; }
+  .entry-offer-right .btn-primary { width: 100%; }
+}
