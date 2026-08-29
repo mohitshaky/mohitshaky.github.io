@@ -50,7 +50,7 @@
       </div>
       <div class="hero-stats">
         <div class="stat"><span>7+</span><p>Years in production</p></div>
-        <div class="stat"><span>10+</span><p>Enterprise systems</p></div>
+        <div class="stat"><span>100K+</span><p>Orders a day handled</p></div>
         <div class="stat"><span>NCR</span><p>In person when useful</p></div>
       </div>
     </div>
@@ -152,13 +152,13 @@
         <div class="case-card">
           <span class="case-domain">Tier-1 telecom &nbsp;·&nbsp; order management</span>
           <h3>Orders piled up every time marketing ran a campaign</h3>
-          <p class="case-line"><strong>The problem.</strong> Fine at normal volume. The moment a campaign launched,
+          <p class="case-line"><strong>The problem.</strong> A pipeline carrying hundreds of thousands of orders a day, and fine at normal volume. The moment a campaign launched,
             the order pipeline backed up and support started fixing things by hand.</p>
           <p class="case-line"><strong>What I did.</strong> Traced the pipeline to find where events were really
             queueing, rebuilt the consumer groups and partitioning around the correct key, moved slow downstream
             calls off the poll loop, and added a retry topic so one bad message could no longer block a partition.</p>
-          <p class="case-line"><strong>Outcome.</strong> Campaign peaks were absorbed without operator intervention.
-            Support stopped clearing stuck orders by hand, and an order that did stall became an alert the team saw
+          <p class="case-line"><strong>Outcome.</strong> A pipeline that had been running up to an hour behind at campaign
+            peaks absorbed them without operator intervention. Support stopped clearing stuck orders by hand, and an order that did stall became an alert the team saw
             before the customer did.</p>
           <p class="case-repo">Same pattern, public code: <a href="https://github.com/mohitshaky/order-lifecycle-bpmn" target="_blank" rel="noopener noreferrer">order-lifecycle-bpmn</a></p>
         </div>
@@ -171,8 +171,9 @@
           <p class="case-line"><strong>What I did.</strong> Made consumers idempotent on a stable event ID, made the
             write path append-only, and split the audit projection from the operational read model so either could
             be rebuilt without touching the other.</p>
-          <p class="case-line"><strong>Outcome.</strong> One query against the audit projection replaced a manual
-            reconciliation across three separate stores. The trail became provably complete because it was derived
+          <p class="case-line"><strong>Outcome.</strong> Answering one compliance question went from a few hours of
+            engineering time &mdash; querying three separate stores and reconciling by hand &mdash; to a single query
+            against the audit projection. The trail became provably complete because it was derived
             from the event log rather than assembled alongside it.</p>
           <p class="case-repo">Same pattern, public code: <a href="https://github.com/mohitshaky/banking-account-service" target="_blank" rel="noopener noreferrer">banking-account-service</a></p>
         </div>
@@ -478,15 +479,9 @@
       </div>
 
       <!--
-        ============================================================
-        TODO — MOHIT: add GSTIN and Udyam registration number to the
-        footer once registered. Udyam registration makes late payment
-        the client CFO's problem under Section 43B(h), which is a real
-        collection advantage with Indian clients.
-        Also worth one paid hour with a CA before publishing anything
-        further about tax — GST registration thresholds for service
-        exporters are genuinely contested.
-        ============================================================
+        STILL MISSING: case 3 has no figure of its own, and there is no "after"
+        number on case 1 (only the "up to an hour behind" before). Add them when
+        you have something you can defend.
       -->
     </div>
   </section>

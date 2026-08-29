@@ -251,8 +251,8 @@
   <div class="eng">
     <div class="eng-domain">Telecom &mdash; order management platform</div>
     <div class="eng-title">Order pipeline that backed up under campaign load</div>
-    <p><span class="lbl">Problem.</span> Subscriber orders processed reliably at baseline volume but queued whenever
-      a marketing campaign ran, leaving orders in intermediate states for support to resolve by hand.</p>
+    <p><span class="lbl">Problem.</span> A pipeline carrying hundreds of thousands of orders a day processed reliably
+      at baseline volume but ran up to an hour behind whenever a marketing campaign launched, leaving orders in intermediate states for support to resolve by hand.</p>
     <p><span class="lbl">Approach.</span> Traced the pipeline to locate the real queueing point, redesigned consumer
       groups and partitioning around the correct partition key, moved blocking downstream calls off the poll loop,
       and introduced a retry topic with dead-letter handling so a single malformed message could no longer stall a
@@ -265,12 +265,12 @@
     <div class="eng-domain">Banking &mdash; account event processing</div>
     <div class="eng-title">Audit trail that could not be shown to be complete</div>
     <p><span class="lbl">Problem.</span> Account movements were published as events, but answering one compliance
-      question meant querying several stores and reconciling by hand, with no assurance the result was correct.</p>
+      question cost a few hours of engineering time, querying three separate stores and reconciling by hand, with no assurance the result was correct.</p>
     <p><span class="lbl">Approach.</span> Established idempotent consumers keyed on a stable event identifier, made
       the write path append-only, and separated the audit projection from the operational read model so either
       could be rebuilt without disturbing the other.</p>
-    <p><span class="lbl">Outcome.</span> History reconstructible from the event log alone; compliance queries
-      answered from the projection instead of from engineering time.</p>
+    <p><span class="lbl">Outcome.</span> History reconstructible from the event log alone; a single projection query
+      replaced the manual reconciliation.</p>
   </div>
 
   <div class="eng">
