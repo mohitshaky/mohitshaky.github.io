@@ -862,3 +862,102 @@ ul { list-style: none; }
   text-decoration: none; transition: top 0.15s;
 }
 .skip-link:focus { top: 0; }
+
+/* ------------------------------------------------------------------
+   Consulting layout — casework section and copy-led card treatments
+   ------------------------------------------------------------------ */
+
+/* The WhatsApp float was removed, so LinkedIn drops to the base slot */
+.linkedin-btn { bottom: 24px; }
+
+/* Plain-text badge reads better than an emoji on a consulting page */
+.service-card.perf-card::before { content: 'PERFORMANCE'; }
+
+/* Short lead paragraph introducing each engagement */
+.service-blurb {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+
+/* Project cards carry descriptive statements now, not metric pills,
+   so these stack as quiet lines rather than sitting in rounded chips */
+.impact-numbers {
+  flex-direction: column;
+  gap: 0.35rem;
+  padding-left: 0;
+  margin-bottom: 1.1rem;
+}
+.impact-numbers span {
+  background: none;
+  border: none;
+  padding: 0 0 0 1rem;
+  position: relative;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+.impact-numbers span::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0.6em;
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--primary);
+}
+
+/* Casework */
+.casework { background: var(--bg-alt); }
+.case-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+}
+.case-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--primary);
+  border-radius: var(--radius);
+  padding: 2rem 2.25rem;
+  transition: box-shadow 0.25s, transform 0.25s;
+}
+.case-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-3px); }
+.case-domain {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin-bottom: 0.6rem;
+}
+.case-card h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 1rem;
+  line-height: 1.4;
+}
+.case-line {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.8;
+  margin-bottom: 0.85rem;
+}
+.case-line:last-child { margin-bottom: 0; }
+.case-line strong { color: var(--text); font-weight: 700; }
+.case-footnote {
+  margin-top: 2rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  text-align: center;
+  font-style: italic;
+}
+
+@media (max-width: 640px) {
+  .case-card { padding: 1.5rem 1.35rem; }
+}
