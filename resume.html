@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<title>Mohit Shakya — Backend Engineer &amp; Consultant</title>
+<style>
+  @page {
+    size: A4;
+    margin: 13mm 14mm 12mm 14mm;
+  }
+
+  :root {
+    --ink:      #16181d;
+    --body:     #3c4353;
+    --muted:    #6b7382;
+    --accent:   #1a73e8;
+    --rule:     #d9e1f0;
+    --tint:     #f4f8fe;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: #fff;
+  }
+
+  body {
+    font-family: "Segoe UI", -apple-system, system-ui, "Helvetica Neue", Arial, sans-serif;
+    font-size: 9.6pt;
+    line-height: 1.52;
+    color: var(--body);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  a { color: var(--accent); text-decoration: none; }
+
+  /* ---------- masthead ---------- */
+
+  header {
+    border-bottom: 2.5px solid var(--accent);
+    padding-bottom: 9px;
+    margin-bottom: 14px;
+  }
+
+  h1 {
+    font-size: 22pt;
+    line-height: 1.1;
+    font-weight: 700;
+    letter-spacing: -0.4px;
+    color: var(--ink);
+    margin: 0 0 3px;
+  }
+
+  .role {
+    font-size: 10.4pt;
+    font-weight: 600;
+    color: var(--accent);
+    margin: 0 0 7px;
+  }
+
+  .contact {
+    font-size: 8.7pt;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+  .contact span { white-space: nowrap; }
+  .sep { color: var(--rule); margin: 0 6px; }
+
+  /* ---------- section scaffolding ---------- */
+
+  section { margin-bottom: 13px; }
+
+  h2 {
+    font-size: 8.2pt;
+    font-weight: 700;
+    letter-spacing: 1.3px;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin: 0 0 7px;
+    padding-bottom: 3px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  p { margin: 0 0 7px; }
+  p:last-child { margin-bottom: 0; }
+
+  strong { color: var(--ink); font-weight: 600; }
+
+  /* ---------- capability list ---------- */
+
+  .cap { margin-bottom: 6.5px; }
+  .cap:last-child { margin-bottom: 0; }
+  .cap-h {
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 1px;
+  }
+
+  /* ---------- engagements ---------- */
+
+  .eng {
+    padding-left: 10px;
+    border-left: 2px solid var(--rule);
+    margin-bottom: 10px;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+  .eng:last-child { margin-bottom: 0; }
+
+  .eng-domain {
+    font-size: 7.6pt;
+    font-weight: 700;
+    letter-spacing: 0.9px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1px;
+  }
+  .eng-title {
+    font-size: 10pt;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 3px;
+    line-height: 1.32;
+  }
+  .eng p { margin-bottom: 3.5px; }
+  .eng p:last-child { margin-bottom: 0; }
+  .lbl { font-weight: 600; color: var(--ink); }
+
+  /* ---------- repositories ---------- */
+
+  .repo {
+    display: grid;
+    grid-template-columns: 168px 1fr;
+    gap: 10px;
+    padding: 4.5px 0;
+    border-bottom: 1px dotted var(--rule);
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+  .repo:last-child { border-bottom: none; }
+  .repo-name {
+    font-family: "Cascadia Mono", Consolas, "Courier New", monospace;
+    font-size: 8.6pt;
+    font-weight: 600;
+    color: var(--accent);
+    word-break: break-all;
+  }
+  .repo-what { font-size: 9.1pt; }
+
+  /* ---------- skills ---------- */
+
+  .skills { display: grid; grid-template-columns: 1fr 1fr; gap: 2px 20px; }
+  /* Wide enough for the longest label (FRAMEWORKS, OPERATIONS) plus the gap —
+     narrower and the value column butts straight into the label. */
+  .skill-row { display: grid; grid-template-columns: 88px 1fr; gap: 9px; padding: 2px 0; }
+  .skill-k {
+    font-size: 8.1pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--muted);
+    padding-top: 0.5px;
+  }
+  .skill-v { font-size: 9pt; color: var(--body); }
+
+  /* ---------- closing note ---------- */
+
+  .engage {
+    background: var(--tint);
+    border: 1px solid var(--rule);
+    border-radius: 5px;
+    padding: 9px 11px;
+    font-size: 9.2pt;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+  .engage p { margin-bottom: 4px; }
+  .engage p:last-child { margin-bottom: 0; }
+
+  .confid {
+    font-size: 8.3pt;
+    color: var(--muted);
+    font-style: italic;
+    margin-bottom: 8px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Mohit Shakya</h1>
+  <p class="role">Backend Engineer &amp; Independent Consultant &mdash; Java, Spring Boot, Apache Kafka</p>
+  <div class="contact">
+    <span>mohitshakya797@gmail.com</span><span class="sep">|</span><span>Gurgaon, India &mdash; remote worldwide</span><br/>
+    <span>mohitshaky.github.io</span><span class="sep">|</span><span>github.com/mohitshaky</span><span class="sep">|</span><span>linkedin.com/in/mohit-shakya-9ab944110</span>
+  </div>
+</header>
+
+<section>
+  <h2>Profile</h2>
+  <p>
+    Backend engineer with seven years building and operating production systems in telecom and banking &mdash;
+    environments where an outage is a regulatory event and the audit trail has to survive questioning.
+  </p>
+  <p>
+    I work independently, taking on service builds, performance remediation and, increasingly, getting AI
+    features into Java codebases that were never designed for them. Most engagements start with a diagnostic
+    and end with the client's own team able to maintain what I built.
+  </p>
+</section>
+
+<section>
+  <h2>What I do</h2>
+
+  <div class="cap">
+    <div class="cap-h">Build backend services</div>
+    REST APIs, Kafka pipelines and BPMN-driven workflow services in Spring Boot. Delivered with tests, OpenAPI
+    documentation, a container build and a runbook &mdash; handover is part of the work, not an afterthought.
+  </div>
+
+  <div class="cap">
+    <div class="cap-h">Fix systems that have got slow</div>
+    Kafka consumer lag that never recovers, p99 latency that has crept up across releases, database access
+    nobody has revisited since it was written. I profile before changing anything and measure again after.
+  </div>
+
+  <div class="cap">
+    <div class="cap-h">Make systems observable</div>
+    Distributed tracing, metrics that map to user impact, and structured logging with correlation IDs, so the
+    next incident is diagnosed from a dashboard rather than by reading log files.
+  </div>
+
+  <div class="cap">
+    <div class="cap-h">Integrate AI into existing Java estates</div>
+    Retrieval over a client's own documents using Spring AI or LangChain4j, with citations, grounding
+    guardrails, prompt versioning and a token cost ceiling &mdash; the controls a compliance review asks for.
+  </div>
+</section>
+
+<section>
+  <h2>Selected engagements</h2>
+  <p class="confid">Client names withheld under confidentiality. Described by problem and approach.</p>
+
+  <div class="eng">
+    <div class="eng-domain">Telecom &mdash; order management platform</div>
+    <div class="eng-title">Order pipeline that backed up under campaign load</div>
+    <p><span class="lbl">Problem.</span> Subscriber orders processed reliably at baseline volume but queued whenever
+      a marketing campaign ran, leaving orders in intermediate states for support to resolve by hand.</p>
+    <p><span class="lbl">Approach.</span> Traced the pipeline to locate the real queueing point, redesigned consumer
+      groups and partitioning around the correct partition key, moved blocking downstream calls off the poll loop,
+      and introduced a retry topic with dead-letter handling so a single malformed message could no longer stall a
+      partition.</p>
+    <p><span class="lbl">Outcome.</span> Campaign peaks absorbed without operator intervention; stuck orders became
+      an alertable condition rather than a customer complaint.</p>
+  </div>
+
+  <div class="eng">
+    <div class="eng-domain">Banking &mdash; account event processing</div>
+    <div class="eng-title">Audit trail that could not be shown to be complete</div>
+    <p><span class="lbl">Problem.</span> Account movements were published as events, but answering one compliance
+      question meant querying several stores and reconciling by hand, with no assurance the result was correct.</p>
+    <p><span class="lbl">Approach.</span> Established idempotent consumers keyed on a stable event identifier, made
+      the write path append-only, and separated the audit projection from the operational read model so either
+      could be rebuilt without disturbing the other.</p>
+    <p><span class="lbl">Outcome.</span> History reconstructible from the event log alone; compliance queries
+      answered from the projection instead of from engineering time.</p>
+  </div>
+
+  <div class="eng">
+    <div class="eng-domain">Telecom &mdash; subscription lifecycle</div>
+    <div class="eng-title">One business rule change meant releasing six services</div>
+    <p><span class="lbl">Problem.</span> Subscribe, upgrade, suspend and cancel logic had accumulated across several
+      services over years. The true sequence existed only as tribal knowledge.</p>
+    <p><span class="lbl">Approach.</span> Modelled the lifecycle explicitly as a BPMN process so the sequence became
+      a reviewable artefact, kept service integration event-driven, and made each transition individually
+      traceable.</p>
+    <p><span class="lbl">Outcome.</span> Rule changes became a process-definition edit rather than a coordinated
+      multi-service release.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Public code</h2>
+
+  <div class="repo">
+    <div class="repo-name">enterprise-rag-service</div>
+    <div class="repo-what">Retrieval-augmented generation built as a production service. Spring AI over pgvector,
+      multi-tenant isolation proved by integration test, a grounding policy that refuses rather than fabricates,
+      versioned prompts and per-tenant token budgets.</div>
+  </div>
+
+  <div class="repo">
+    <div class="repo-name">order-lifecycle-bpmn</div>
+    <div class="repo-what">Flowable BPMN orchestration with asynchronous Kafka provisioning and multi-tenant
+      partitioning. The process definition is the source of truth.</div>
+  </div>
+
+  <div class="repo">
+    <div class="repo-name">banking-account-service</div>
+    <div class="repo-what">Append-only audit projection rebuildable from the event log; idempotent consumers under
+      at-least-once delivery.</div>
+  </div>
+
+  <div class="repo">
+    <div class="repo-name">offer-promo-engine</div>
+    <div class="repo-what">Latency-sensitive rule evaluation with a deliberate Redis caching boundary, OAuth2
+      resource server and Kubernetes manifests.</div>
+  </div>
+</section>
+
+<section>
+  <h2>Technical</h2>
+  <div class="skills">
+    <div class="skill-row"><div class="skill-k">Languages</div><div class="skill-v">Java 17 / 21, SQL, JavaScript</div></div>
+    <div class="skill-row"><div class="skill-k">Frameworks</div><div class="skill-v">Spring Boot 3, Spring Security, Spring Data, Spring AI, Flowable BPMN</div></div>
+    <div class="skill-row"><div class="skill-k">Messaging</div><div class="skill-v">Apache Kafka &mdash; consumer groups, partitioning, retry and dead-letter topics, delivery semantics</div></div>
+    <div class="skill-row"><div class="skill-k">Data</div><div class="skill-v">PostgreSQL, pgvector, MongoDB, MySQL, Redis, Flyway</div></div>
+    <div class="skill-row"><div class="skill-k">AI</div><div class="skill-v">Spring AI, LangChain4j, RAG, vector search, evaluation harnesses</div></div>
+    <div class="skill-row"><div class="skill-k">Operations</div><div class="skill-v">Docker, Kubernetes, Prometheus, Grafana, OpenTelemetry, GitHub Actions</div></div>
+    <div class="skill-row"><div class="skill-k">Testing</div><div class="skill-v">JUnit 5, Mockito, Testcontainers, integration and contract testing</div></div>
+    <div class="skill-row"><div class="skill-k">Build</div><div class="skill-v">Gradle, Maven</div></div>
+  </div>
+</section>
+
+<section>
+  <h2>How I engage</h2>
+  <div class="engage">
+    <p>Fixed price against a written scope, agreed before work starts. Most engagements run one to four weeks.
+      Clients own all code and documentation from day one, and follow-up support is included after delivery.</p>
+    <p>Available for short diagnostic engagements, project delivery, and part-time ongoing arrangements.
+      Backend health check from $199; project work from $1,200.</p>
+  </div>
+</section>
+
+</body>
+</html>
