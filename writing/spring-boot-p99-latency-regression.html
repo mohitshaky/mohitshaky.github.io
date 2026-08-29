@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Spring Boot p99 latency doubled and nobody can point at the change</title>
+<meta name="description" content="A diagnostic order for latency that crept up across releases in a Spring Boot service: connection pool saturation, N+1 access, GC pressure and cache decay - and why the mean stayed flat while p99 doubled."/>
+<meta name="keywords" content="spring boot p99 latency increased, api latency doubled after release, hikaricp pool exhaustion, n+1 query spring data, jvm gc pause p99, latency regression diagnosis"/>
+<link rel="canonical" href="https://mohitshaky.github.io/writing/spring-boot-p99-latency-regression.html"/>
+<meta property="og:type" content="article"/>
+<meta property="og:title" content="Spring Boot p99 latency doubled and nobody can point at the change"/>
+<meta property="og:description" content="A diagnostic order for latency that crept up across releases, and why the mean stayed flat while p99 doubled."/>
+<meta property="og:url" content="https://mohitshaky.github.io/writing/spring-boot-p99-latency-regression.html"/>
+<meta property="og:image" content="https://mohitshaky.github.io/og-banner.jpg"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Spring Boot p99 latency doubled and nobody can point at the change",
+  "description": "A diagnostic order for latency regressions in Spring Boot services: pool saturation, N+1 access, GC pressure and cache decay.",
+  "author": { "@type": "Person", "name": "Mohit Shakya", "url": "https://mohitshaky.github.io" },
+  "publisher": { "@type": "Person", "name": "Mohit Shakya" },
+  "datePublished": "2026-08-29",
+  "mainEntityOfPage": "https://mohitshaky.github.io/writing/spring-boot-p99-latency-regression.html",
+  "about": ["Spring Boot", "Performance tuning", "JVM"]
+}
+</script>
+<link rel="icon" href="/favicon.ico" sizes="32x32"/>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" media="print" onload="this.media='all'"/>
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"/></noscript>
+<link rel="stylesheet" href="../style.css"/>
+</head>
+<body>
+
+<div class="article-wrap">
+  <a href="index.html" class="article-back">&#8592; Writing</a>
+  <p class="article-meta">Spring Boot &middot; Performance &middot; 29 August 2026</p>
+  <h1>p99 doubled across two releases and nobody can point at the change</h1>
+  <p class="article-standfirst">
+    Nobody shipped anything obviously slow. Mean response time barely moved. But p99 went from 400ms to 900ms
+    across two releases, and the diff is four hundred commits. This is the diagnostic order I use, and it is
+    deliberately not the order most teams try first.
+  </p>
+
+  <p>
+    Start with what the shape tells you. <strong>The mean staying flat while p99 doubles is itself a strong
+    signal.</strong> It means most requests are unaffected and a minority became much slower. That rules out
+    anything uniformly expensive &mdash; an extra field serialised on every response, a slightly slower algorithm
+    &mdash; because those raise the whole distribution. You are looking for something that affects a subset:
+    requests that queue, requests that touch more data than others, or requests unlucky enough to land during a
+    pause.
+  </p>
+  <p>That narrows it to roughly four causes, and they are worth checking in this order.</p>
+
+  <h2>1. Connection pool saturation</h2>
+  <p>
+    The most common and the most misread. HikariCP defaults to ten connections. When all ten are in use, the
+    eleventh request does not fail &mdash; it blocks, waiting for one to be returned. That waiting time is
+    invisible in your database metrics, because from the database's perspective every query is still fast. The
+    query time did not change. The time spent queuing for permission to run a query did.
+  </p>
+  <p>
+    This produces exactly the mean-flat-p99-doubled signature: under the pool limit everything is normal, and past
+    it a minority of requests wait. It appears without any code change, purely from traffic growth, which is why
+    "nobody changed anything" is often literally true.
+  </p>
+  <p><strong>What to look at:</strong></p>
+  <ul>
+    <li><code>hikaricp.connections.pending</code> &mdash; non-zero at peak is the whole answer</li>
+    <li><code>hikaricp.connections.acquire</code> timer &mdash; if its p99 is a meaningful slice of request p99, stop looking elsewhere</li>
+    <li><code>hikaricp.connections.usage</code> &mdash; how long each borrowed connection is held</li>
+  </ul>
+  <p>
+    The instinct is to raise <code>maximum-pool-size</code>. Sometimes correct, often not: if connections are being
+    held for longer than they should be &mdash; a transaction spanning an HTTP call, say, or
+    <code>@Transactional</code> on a method that does far more than database work &mdash; a larger pool just moves
+    the queue into the database. Check hold time before pool size. A pool bigger than the database's own
+    connection limit divided by your replica count is a way to convert an application problem into a database
+    outage.
+  </p>
+
+  <h2>2. N+1 access that grew with the data</h2>
+  <p>
+    A lazy association iterated in a loop issues one query per row. With ten rows in test data nobody notices. Two
+    years later the largest customer has four thousand, and their requests &mdash; and only theirs &mdash; are
+    catastrophically slow. Mean flat, p99 doubled.
+  </p>
+  <p>
+    The reason this hides so well is that it is data-dependent rather than code-dependent. The endpoint is fine for
+    almost everyone. Bisecting releases will never find it, because no release introduced it &mdash; a customer's
+    growth did.
+  </p>
+  <div class="article-callout">
+    <p>
+      <strong>The fastest way to find it:</strong> turn on statement counting per request in a staging environment
+      and sort endpoints by query count rather than by duration. An endpoint issuing 900 queries is obvious in that
+      view and invisible in a latency dashboard. Datasource proxies that log a per-request query count make this a
+      five-minute exercise.
+    </p>
+  </div>
+  <p>
+    The fix is a join fetch, an entity graph, or a batch size &mdash; but confirm the count dropped rather than
+    assuming. It is easy to add a fetch join that fixes one association and leaves a second one lazy, and the
+    endpoint is still doing 300 queries.
+  </p>
+
+  <h2>3. GC pressure, especially after a heap or JDK change</h2>
+  <p>
+    Garbage collection pauses hit whichever requests are in flight when they occur. That is, by construction, a
+    tail-latency problem: a 200ms pause every few seconds does almost nothing to the mean and a great deal to p99.
+  </p>
+  <p>Worth checking when latency changed around an infrastructure event rather than a code release:</p>
+  <ul>
+    <li>A container memory limit changed, so the JVM's ergonomic heap sizing changed with it</li>
+    <li>A JDK upgrade switched the default collector, or moved between G1 and Parallel by heap-size heuristics</li>
+    <li>Heap grew large enough that full collections became meaningfully longer</li>
+    <li>An added cache is retaining far more than intended and pushing objects into the old generation</li>
+  </ul>
+  <p>
+    Compare GC pause percentiles against request latency percentiles on the same time axis. If they move together,
+    that is your cause. If GC is flat while p99 climbs, rule it out and move on &mdash; a great deal of time gets
+    burned tuning collectors that were never the problem.
+  </p>
+
+  <h2>4. Cache hit rate decay</h2>
+  <p>
+    A cache sized for last year's key space quietly stops working as the key space grows. Hit rate slides from 95%
+    to 60% over months. The 40% of requests that now miss go to the database, and those are your tail. Nothing was
+    changed; the cache simply outgrew its configured size.
+  </p>
+  <p>
+    This is the one that most often goes undetected for longest, because a cache that is <em>working</em> is
+    invisible and a cache that is <em>degrading</em> is equally invisible unless hit rate is actually on a
+    dashboard. If you take one thing from this section: graph cache hit rate, and alert when it drops rather than
+    when it is low.
+  </p>
+
+  <h2>The order matters more than the list</h2>
+  <p>
+    All four of these are well known. What teams get wrong is the sequence &mdash; they profile the application
+    code first, because that is where a performance problem intuitively lives, and application code is rarely the
+    answer to a <em>regression</em> of this shape. It was fast last year with the same code.
+  </p>
+  <p>Work outside-in:</p>
+  <ol>
+    <li><strong>Is the request queuing before it does work?</strong> Pool pending, thread pool queue depth.</li>
+    <li><strong>Is it doing more work than it used to?</strong> Query count per request, payload sizes, cache hit rate.</li>
+    <li><strong>Is something pausing the process?</strong> GC percentiles against latency percentiles.</li>
+    <li><strong>Only now, profile the code.</strong></li>
+  </ol>
+  <p>
+    And measure before changing anything. The most expensive outcome of a latency investigation is not failing to
+    find the cause &mdash; it is shipping four speculative fixes at once, watching p99 improve, and never knowing
+    which one did it. The next regression then starts from zero.
+  </p>
+
+  <div class="article-cta">
+    <h3>Latency crept up and you cannot find it?</h3>
+    <p>
+      Send me one slow endpoint and I will send back three specific fixes, written down, within two working days.
+      Free, two a week, no obligation.
+    </p>
+    <a href="../index.html#free-review" class="btn-primary">Get a free review</a>
+  </div>
+</div>
+
+<script src="../app.js"></script>
+</body>
+</html>

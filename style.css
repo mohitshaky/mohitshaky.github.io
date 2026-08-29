@@ -1444,6 +1444,132 @@ ul { list-style: none; }
 }
 
 /* ------------------------------------------------------------------
+   Long-form articles
+   ------------------------------------------------------------------ */
+.article-wrap {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 120px 6% 80px;
+}
+.article-meta {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin-bottom: 0.9rem;
+}
+.article-wrap h1 {
+  font-size: 2.3rem;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.5px;
+  color: var(--text);
+  margin-bottom: 1rem;
+}
+.article-standfirst {
+  font-size: 1.08rem;
+  line-height: 1.75;
+  color: var(--text-muted);
+  padding-bottom: 1.6rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--border);
+}
+.article-wrap h2 {
+  font-size: 1.32rem;
+  font-weight: 700;
+  color: var(--text);
+  margin: 2.4rem 0 0.9rem;
+  line-height: 1.35;
+}
+.article-wrap h3 {
+  font-size: 1.03rem;
+  font-weight: 700;
+  color: var(--text);
+  margin: 1.8rem 0 0.6rem;
+}
+.article-wrap p {
+  font-size: 0.98rem;
+  line-height: 1.85;
+  color: var(--text-muted);
+  margin-bottom: 1.15rem;
+}
+.article-wrap p strong,
+.article-wrap li strong { color: var(--text); font-weight: 650; }
+.article-wrap ul, .article-wrap ol { margin: 0 0 1.3rem 1.15rem; }
+.article-wrap li {
+  font-size: 0.98rem;
+  line-height: 1.8;
+  color: var(--text-muted);
+  margin-bottom: 0.45rem;
+}
+.article-wrap code {
+  font-family: "Cascadia Mono", Consolas, monospace;
+  font-size: 0.86em;
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  padding: 1px 6px;
+  color: var(--text);
+}
+.article-wrap pre {
+  background: #0f1729;
+  color: #d6e4ff;
+  border-radius: var(--radius);
+  padding: 1.1rem 1.3rem;
+  overflow-x: auto;
+  margin-bottom: 1.3rem;
+  font-size: 0.85rem;
+  line-height: 1.65;
+}
+.article-wrap pre code { background: none; border: none; color: inherit; padding: 0; }
+.article-callout {
+  background: var(--bg-alt);
+  border-left: 3px solid var(--primary);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 1.1rem 1.4rem;
+  margin: 1.6rem 0;
+}
+.article-callout p { margin-bottom: 0; font-size: 0.93rem; }
+.article-cta {
+  margin-top: 3rem;
+  padding: 1.75rem 1.9rem;
+  background: linear-gradient(135deg, #eafaf1, var(--surface));
+  border: 1px solid #28c864;
+  border-radius: var(--radius-lg);
+}
+.article-cta h3 { margin-top: 0; }
+.article-cta p { font-size: 0.92rem; margin-bottom: 1rem; }
+.article-back {
+  display: inline-block;
+  margin-bottom: 2rem;
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--primary);
+  text-decoration: none;
+}
+.article-back:hover { text-decoration: underline; }
+
+.writing-list { display: flex; flex-direction: column; gap: 1.1rem; margin-top: 2.5rem; }
+.writing-item {
+  display: block;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem 1.7rem;
+  text-decoration: none;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+}
+.writing-item:hover { border-color: var(--primary); box-shadow: var(--shadow); transform: translateY(-2px); }
+.writing-item h2 { font-size: 1.12rem; font-weight: 700; color: var(--text); margin-bottom: 0.4rem; line-height: 1.4; }
+.writing-item p { font-size: 0.9rem; line-height: 1.7; color: var(--text-muted); margin: 0; }
+
+@media (max-width: 640px) {
+  .article-wrap { padding: 100px 6% 60px; }
+  .article-wrap h1 { font-size: 1.75rem; }
+}
+
+/* ------------------------------------------------------------------
    Mobile collapse for the pricing grids.
 
    .pricing-grid's single-column rule lives in a @media block earlier in

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>What a compliance review asks about your RAG service (and demos never answer)</title>
+<meta name="description" content="Four questions that stop a retrieval-augmented service getting into a regulated Java estate: multi-tenant isolation, what it does when it does not know, why it said what it said, and what stops the bill running away."/>
+<meta name="keywords" content="spring ai multi tenant rag, rag tenant isolation, pgvector metadata filter tenant, rag hallucination grounding threshold, rag prompt versioning audit, llm token budget per tenant java"/>
+<link rel="canonical" href="https://mohitshaky.github.io/writing/rag-regulated-java-estate.html"/>
+<meta property="og:type" content="article"/>
+<meta property="og:title" content="What a compliance review asks about your RAG service"/>
+<meta property="og:description" content="Four questions that stop a retrieval service getting into a regulated Java estate, and how to answer each in code."/>
+<meta property="og:url" content="https://mohitshaky.github.io/writing/rag-regulated-java-estate.html"/>
+<meta property="og:image" content="https://mohitshaky.github.io/og-banner.jpg"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "What a compliance review asks about your RAG service (and demos never answer)",
+  "description": "Multi-tenant isolation, grounded refusal, prompt versioning and token budgets: the four questions that decide whether a retrieval service ships in a regulated environment.",
+  "author": { "@type": "Person", "name": "Mohit Shakya", "url": "https://mohitshaky.github.io" },
+  "publisher": { "@type": "Person", "name": "Mohit Shakya" },
+  "datePublished": "2026-08-29",
+  "mainEntityOfPage": "https://mohitshaky.github.io/writing/rag-regulated-java-estate.html",
+  "about": ["Retrieval-Augmented Generation", "Spring AI", "pgvector", "Multi-tenancy"]
+}
+</script>
+<link rel="icon" href="/favicon.ico" sizes="32x32"/>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" media="print" onload="this.media='all'"/>
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"/></noscript>
+<link rel="stylesheet" href="../style.css"/>
+</head>
+<body>
+
+<div class="article-wrap">
+  <a href="index.html" class="article-back">&#8592; Writing</a>
+  <p class="article-meta">Spring AI &middot; RAG &middot; 29 August 2026</p>
+  <h1>What a compliance review asks about your RAG service</h1>
+  <p class="article-standfirst">
+    Getting retrieval-augmented generation working takes an afternoon. Getting it past a security review at a bank
+    takes considerably longer, and the gap is not model quality. It is four questions nobody asks a prototype
+    &mdash; and each one has a concrete answer in code.
+  </p>
+
+  <h2>1. Can it answer using another customer's documents?</h2>
+  <p>
+    This is the question that ends the conversation if you cannot answer it precisely, and the failure it guards
+    against is the nastiest kind: <strong>multi-tenant retrieval leakage does not throw.</strong> There is no
+    exception, no error metric, no alert. One customer simply receives a fluent, well-cited answer assembled from
+    another customer's files, and nobody finds out until someone reads an answer that mentions a company they have
+    never heard of.
+  </p>
+  <p>
+    The mechanism is mundane. Every retrieval path must filter on tenant, and every ingestion path must stamp it.
+    Miss the filter on one code path &mdash; a new endpoint, a batch reindexer, an "admin" search added for
+    support &mdash; and that path leaks silently.
+  </p>
+  <p>
+    Two things make this defensible. First, apply the filter in <em>one</em> place, on the read side, rather than
+    leaving each caller to remember. Second, and this is what a reviewer actually wants to see, assert it with a
+    test that seeds two tenants and proves one cannot retrieve the other's passages &mdash; including the case
+    where a tenant has no documents at all and must get an empty result rather than somebody else's.
+  </p>
+  <div class="article-callout">
+    <p>
+      A useful sharpener: run that isolation test with the similarity threshold dropped to zero, so every stored
+      chunk is a candidate. If the tenant filter is broken, the other tenant's content comes back. If you only ever
+      test at production thresholds, a broken filter can hide behind scoring.
+    </p>
+  </div>
+
+  <h2>2. What does it do when it does not know?</h2>
+  <p>
+    Handed weak context and asked to be helpful, a language model produces a fluent, confident, wrong answer. This
+    is the failure mode that matters most in a regulated setting and the one demos never show, because
+    <strong>it looks exactly like success.</strong> There is no error, no low-confidence flag, nothing in a log.
+    Just a plausible paragraph that happens not to be true.
+  </p>
+  <p>
+    Prompt wording alone will not fix this. "Only answer from the context" helps and does not hold under pressure,
+    because you have no control over whether it was followed. The reliable approach is to make refusal a
+    deterministic decision taken <em>before</em> the model is called: if the best retrieved passage scores below a
+    threshold, or too few passages survive, decline and say why. That decision is testable, and it costs nothing
+    &mdash; no tokens are spent on a question you were never going to answer well.
+  </p>
+  <p>
+    Two design details matter. Return refusal as a structured field rather than as prose, so callers can branch on
+    it without pattern-matching English. And treat the threshold as a tuning dial with a real trade-off: raise it
+    and you refuse questions the corpus could just about answer; lower it and you start inventing. That trade needs
+    measuring rather than guessing, which means an evaluation set that deliberately includes questions the corpus
+    <em>cannot</em> answer. Scoring only answerable questions makes "answer everything" look like a perfect score.
+  </p>
+
+  <h2>3. Why did it say that, six months ago?</h2>
+  <p>
+    This question gets asked in regulated environments, usually by someone who is not interested in how language
+    models work. "We have changed the prompt since then" is not an acceptable answer.
+  </p>
+  <p>
+    The fix is unglamorous: treat prompts as released artefacts rather than string literals. Version them as files,
+    record which version produced each answer, and return that version with the answer. Changing a prompt then
+    becomes adding a file and moving a config value &mdash; a reviewable diff and a revertible one, rather than an
+    edit buried in a service class that nobody can date.
+  </p>
+  <p>
+    The same logic extends to what was retrieved. Storing the passage identifiers and scores that produced an
+    answer means you can reconstruct the reasoning later, rather than re-running a query against an index that has
+    since changed.
+  </p>
+
+  <h2>4. What stops the bill running away?</h2>
+  <p>
+    A per-tenant token ceiling is easy to describe and easy to get subtly wrong. The two mistakes I see most:
+  </p>
+  <ul>
+    <li>
+      <strong>Counting in memory.</strong> An in-process counter gives every replica its own budget, so three pods
+      means three times the ceiling. It also resets on restart. Counters have to live somewhere shared &mdash; a
+      row in Postgres is entirely sufficient.
+    </li>
+    <li>
+      <strong>Read-modify-write in application code.</strong> Reading the total, adding to it, and writing it back
+      loses updates under concurrency, and passes every single-threaded test you will write. Let the database do
+      the arithmetic with an atomic upsert, and write a test that hammers it from several threads at once.
+    </li>
+  </ul>
+  <p>
+    Where to check and where to record also matters. Check the budget before retrieval, so an over-budget tenant
+    costs nothing at all; record usage after the call, from the provider's reported usage rather than an estimate.
+    A tenant can then overshoot by at most one request, which is the right trade for a ceiling whose job is
+    stopping runaway spend rather than billing.
+  </p>
+
+  <h2>The pattern underneath all four</h2>
+  <p>
+    Each of these is the same shape of problem: a failure that produces no error. Leakage returns a good-looking
+    answer. Ungrounded generation returns a good-looking answer. An unversioned prompt works fine until somebody
+    asks a question about the past. An in-memory budget works fine until you scale out.
+  </p>
+  <p>
+    That is why the answer to each is a test or a structural constraint rather than a monitor. You cannot alert on
+    a failure that does not signal. You can only make it impossible, and then prove it.
+  </p>
+
+  <div class="article-callout">
+    <p>
+      All four are implemented in
+      <a href="https://github.com/mohitshaky/enterprise-rag-service" target="_blank" rel="noopener noreferrer">enterprise-rag-service</a>
+      &mdash; Spring AI over pgvector, with the isolation test, the grounding policy, versioned prompts and a
+      Postgres-backed token budget including the concurrency test described above. It also documents what is
+      deliberately missing.
+    </p>
+  </div>
+
+  <div class="article-cta">
+    <h3>Trying to get this past a review?</h3>
+    <p>
+      Send me the repository and I will send back three specific findings, written down, within two working days.
+      Free, two a week, no obligation.
+    </p>
+    <a href="../index.html#free-review" class="btn-primary">Get a free review</a>
+  </div>
+</div>
+
+<script src="../app.js"></script>
+</body>
+</html>

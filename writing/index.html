@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Writing &mdash; Kafka, Spring Boot and production failure modes</title>
+<meta name="description" content="Notes on the backend failures I get called in for: Kafka consumer lag that never recovers, latency regressions nobody can bisect, and what a compliance review asks about a RAG service."/>
+<link rel="canonical" href="https://mohitshaky.github.io/writing/"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="Writing &mdash; Kafka, Spring Boot and production failure modes"/>
+<meta property="og:description" content="Notes on the backend failures I get called in for."/>
+<meta property="og:url" content="https://mohitshaky.github.io/writing/"/>
+<meta property="og:image" content="https://mohitshaky.github.io/og-banner.jpg"/>
+<link rel="icon" href="/favicon.ico" sizes="32x32"/>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" media="print" onload="this.media='all'"/>
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"/></noscript>
+<link rel="stylesheet" href="../style.css"/>
+</head>
+<body>
+
+<div class="article-wrap">
+  <a href="../index.html" class="article-back">&#8592; Mohit Shakya</a>
+  <p class="article-meta">Writing</p>
+  <h1>Failure modes, written down</h1>
+  <p class="article-standfirst">
+    Notes on the problems I actually get called in for. Each of these is a shape I have seen enough times that the
+    diagnosis is faster than the fix &mdash; which is usually the useful part.
+  </p>
+
+  <div class="writing-list">
+    <a class="writing-item" href="kafka-consumer-lag-not-recovering.html">
+      <h2>Kafka consumer lag that never recovers</h2>
+      <p>
+        Lag climbs during a peak, the peak passes, and lag stays high. That specific shape narrows the cause to
+        four things: work inside the poll loop, partition skew, rebalance storms, or a poison message. How to tell
+        them apart in about ten minutes.
+      </p>
+    </a>
+
+    <a class="writing-item" href="spring-boot-p99-latency-regression.html">
+      <h2>p99 doubled across two releases and nobody can point at the change</h2>
+      <p>
+        The mean stayed flat while the tail doubled &mdash; which is itself the clue. Connection pool saturation,
+        N+1 access that grew with the data, GC pressure and cache decay, in the order worth checking them, and why
+        profiling the application code first is usually wasted effort.
+      </p>
+    </a>
+
+    <a class="writing-item" href="rag-regulated-java-estate.html">
+      <h2>What a compliance review asks about your RAG service</h2>
+      <p>
+        Four questions that decide whether retrieval gets into a regulated Java estate: can it read another
+        customer's documents, what does it do when it does not know, why did it say that six months ago, and what
+        stops the bill running away. Each has a concrete answer in code.
+      </p>
+    </a>
+  </div>
+
+  <div class="article-cta">
+    <h3>Free backend review</h3>
+    <p>
+      Send me one repository, or one endpoint that is too slow. Within two working days I send back three specific,
+      prioritised fixes as a written document. Two a week, no obligation.
+    </p>
+    <a href="../index.html#free-review" class="btn-primary">Get a free review</a>
+  </div>
+</div>
+
+<script src="../app.js"></script>
+</body>
+</html>

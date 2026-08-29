@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Kafka consumer lag that never recovers: the four usual causes</title>
+<meta name="description" content="Consumer lag spikes under load and stays high even after traffic drops. Four causes that produce exactly that shape - work inside the poll loop, partition skew, rebalance storms, and a poison message - and how to tell them apart."/>
+<meta name="keywords" content="kafka consumer lag not recovering, consumer lag keeps growing, kafka rebalance storm, max.poll.interval.ms, kafka partition skew, consumer group lag after rebalance"/>
+<link rel="canonical" href="https://mohitshaky.github.io/writing/kafka-consumer-lag-not-recovering.html"/>
+<meta property="og:type" content="article"/>
+<meta property="og:title" content="Kafka consumer lag that never recovers: the four usual causes"/>
+<meta property="og:description" content="Lag spikes under load and stays high after traffic drops. Four causes that produce that shape, and how to tell them apart."/>
+<meta property="og:url" content="https://mohitshaky.github.io/writing/kafka-consumer-lag-not-recovering.html"/>
+<meta property="og:image" content="https://mohitshaky.github.io/og-banner.jpg"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Kafka consumer lag that never recovers: the four usual causes",
+  "description": "Four causes of consumer lag that spikes under load and stays high after traffic drops, and how to distinguish them.",
+  "author": { "@type": "Person", "name": "Mohit Shakya", "url": "https://mohitshaky.github.io" },
+  "publisher": { "@type": "Person", "name": "Mohit Shakya" },
+  "datePublished": "2026-08-29",
+  "mainEntityOfPage": "https://mohitshaky.github.io/writing/kafka-consumer-lag-not-recovering.html",
+  "about": ["Apache Kafka", "Consumer lag", "Event-driven architecture"]
+}
+</script>
+<link rel="icon" href="/favicon.ico" sizes="32x32"/>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" media="print" onload="this.media='all'"/>
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"/></noscript>
+<link rel="stylesheet" href="../style.css"/>
+</head>
+<body>
+
+<div class="article-wrap">
+  <a href="index.html" class="article-back">&#8592; Writing</a>
+  <p class="article-meta">Apache Kafka &middot; 29 August 2026</p>
+  <h1>Kafka consumer lag that never recovers</h1>
+  <p class="article-standfirst">
+    There is a specific, recognisable shape of failure: lag climbs during a traffic peak, the peak passes, and lag
+    stays high. The consumers are running. Nothing is throwing. Throughput just never returns to what it was.
+    That shape narrows the cause down to about four things.
+  </p>
+
+  <p>
+    The reason it matters that lag <em>never recovers</em>, rather than simply being high, is that it rules out the
+    obvious answer. If consumers were merely undersized, lag would drain once the burst ended, slowly but steadily.
+    A flat or still-climbing line after the peak means the consumers are not processing at their nominal rate any
+    more &mdash; something changed during the burst and stayed changed.
+  </p>
+
+  <h2>1. Work happening inside the poll loop</h2>
+  <p>
+    This is the most common cause by a wide margin. A consumer polls a batch, and for each record makes a
+    synchronous call &mdash; an HTTP request to another service, a database write, an S3 put. Under normal load
+    that call takes 20ms and nobody notices. Under peak load the downstream service slows to 400ms, and now a
+    batch of 500 records takes over three minutes to process.
+  </p>
+  <p>
+    Two things then happen at once. Obviously, throughput collapses. Less obviously, the consumer misses
+    <code>max.poll.interval.ms</code>, the broker concludes it is dead, and the group rebalances. The partitions
+    move to another consumer, which inherits the same backlog and the same slow downstream call, and misses the
+    deadline too. The group now rebalances continuously and processes almost nothing. That is why lag does not
+    recover: the system has entered a state where rebalancing consumes the time that processing needs.
+  </p>
+  <p><strong>How to confirm it.</strong> Look for these together:</p>
+  <ul>
+    <li>Rebalance count climbing during and after the incident, not just at deploys</li>
+    <li><code>records-lag-max</code> flat rather than draining</li>
+    <li>Downstream p99 latency rising just before consumer lag does &mdash; the cause precedes the symptom</li>
+    <li>Log lines about the group coordinator marking members dead</li>
+  </ul>
+  <p>
+    <strong>The fix</strong> is to get the blocking call off the poll loop. Poll, hand the batch to a bounded worker
+    pool, and commit offsets only after the workers acknowledge. If you cannot restructure quickly, reducing
+    <code>max.poll.records</code> is the emergency lever &mdash; smaller batches finish inside the deadline, which at
+    least stops the rebalance storm while you fix the real problem. Raising
+    <code>max.poll.interval.ms</code> is tempting and usually wrong: it hides the failure detection rather than
+    fixing the slowness, and a genuinely stuck consumer now takes far longer to be evicted.
+  </p>
+
+  <h2>2. Partition skew &mdash; one partition holding everything</h2>
+  <p>
+    Kafka parallelism is bounded by partition count, and work is distributed by the partition key. If the key is
+    chosen badly, one partition receives a disproportionate share of traffic and one consumer does most of the
+    work while its peers idle. Aggregate lag looks moderate; per-partition lag shows one line far above the rest.
+  </p>
+  <p>
+    The classic version is keying by something with a heavy head &mdash; a tenant ID where one tenant is ten times
+    larger than the rest, or a country code in a business that is 80% domestic. It is also produced accidentally by
+    a null key with a sticky partitioner, or by a custom partitioner someone wrote years ago for a distribution
+    that no longer exists.
+  </p>
+  <div class="article-callout">
+    <p>
+      <strong>Always graph lag per partition, not per topic.</strong> Topic-level lag is an average, and averages
+      hide precisely the failure you are looking for. This one diagnostic change finds more problems than any
+      config tuning.
+    </p>
+  </div>
+  <p>
+    <strong>The fix</strong> depends on whether ordering matters. If it does not, key by something with higher
+    cardinality, or use a composite key. If ordering per entity is required &mdash; usually the reason the key was
+    chosen in the first place &mdash; you cannot simply rekey without breaking the guarantee. In that case the
+    options are splitting the hot entity into sub-keys where its ordering requirement genuinely permits it, or
+    accepting the skew and sizing for the hot partition rather than for the average.
+  </p>
+
+  <h2>3. Rebalance storms from consumer instability</h2>
+  <p>
+    Every rebalance stops consumption across the whole group. With the default eager assignment strategy, all
+    consumers give up all partitions and re-acquire them. A group rebalancing every thirty seconds spends most of
+    its life not consuming, and lag climbs even though nothing is wrong with the processing code.
+  </p>
+  <p>Common triggers, in the order I usually find them:</p>
+  <ul>
+    <li>Kubernetes liveness probes killing pods during GC pauses or under memory pressure</li>
+    <li><code>session.timeout.ms</code> set below the actual heartbeat interval under load</li>
+    <li>Autoscaling adding and removing consumers on a metric that oscillates</li>
+    <li>A consumer that OOMs, restarts, consumes, and OOMs again in a loop</li>
+  </ul>
+  <p>
+    <strong>The fix</strong> is stabilising membership rather than tuning Kafka. Move to
+    <code>CooperativeStickyAssignor</code> so a rebalance no longer stops the entire group &mdash; only the moving
+    partitions pause. Then find why members keep leaving. If autoscaling is the trigger, damp the scaling metric
+    or set a longer stabilisation window; a consumer group is not a stateless web tier and should not be scaled
+    like one.
+  </p>
+
+  <h2>4. A poison message blocking one partition</h2>
+  <p>
+    A single record that always throws on deserialisation or processing, in a consumer that retries indefinitely,
+    stops that partition permanently. Offsets never advance past it. The other partitions drain normally, so
+    aggregate lag looks like it is recovering &mdash; while one partition climbs forever.
+  </p>
+  <p>
+    This is the cause most often missed, because the service looks healthy: it is up, it is consuming, its error
+    rate is a steady trickle rather than a spike. The only clear signal is a single partition whose committed
+    offset has not moved while its log-end offset keeps rising.
+  </p>
+  <p>
+    <strong>The fix</strong> is a retry topic and a dead-letter path, with a bounded number of attempts before the
+    record is moved aside. The thing to get right is that a dead-letter topic nobody monitors is a data-loss
+    mechanism with extra steps &mdash; it needs an alert on non-zero depth and someone whose job it is to look.
+  </p>
+
+  <h2>Working through it in order</h2>
+  <p>
+    When I am called in for this, the sequence is always the same, and the first two steps take about ten minutes:
+  </p>
+  <ol>
+    <li><strong>Graph lag per partition.</strong> If one line is far above the others, it is skew or a poison message.</li>
+    <li><strong>Graph rebalance count over the same window.</strong> If it is non-zero outside deploys, membership is unstable and nothing else matters until that is fixed.</li>
+    <li><strong>Overlay downstream latency.</strong> If it rises before consumer lag does, the poll loop is blocked on something external.</li>
+    <li><strong>Check committed offset movement per partition.</strong> A partition whose committed offset is frozen while its end offset climbs is a poison message, regardless of what the error rate says.</li>
+  </ol>
+  <p>
+    Almost every case I have seen resolves to one of these four, and the diagnosis is nearly always faster than the
+    fix. The mistake worth avoiding is reaching for consumer config first &mdash; increasing
+    <code>max.poll.interval.ms</code> or adding consumers beyond the partition count feels like progress and
+    changes nothing, because neither addresses why throughput dropped in the first place.
+  </p>
+
+  <div class="article-callout">
+    <p>
+      A worked implementation of the retry-topic and dead-letter pattern described above, with idempotent
+      consumers, is in
+      <a href="https://github.com/mohitshaky/order-lifecycle-bpmn" target="_blank" rel="noopener noreferrer">order-lifecycle-bpmn</a>
+      and
+      <a href="https://github.com/mohitshaky/banking-account-service" target="_blank" rel="noopener noreferrer">banking-account-service</a>.
+    </p>
+  </div>
+
+  <div class="article-cta">
+    <h3>Stuck on one of these?</h3>
+    <p>
+      Send me the repository or the endpoint and I will send back three specific fixes, written down, within two
+      working days. Free, two a week, no obligation.
+    </p>
+    <a href="../index.html#free-review" class="btn-primary">Get a free review</a>
+  </div>
+</div>
+
+<script src="../app.js"></script>
+</body>
+</html>
