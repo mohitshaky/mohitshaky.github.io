@@ -253,8 +253,9 @@
           <p class="case-line"><strong>What I did.</strong> Traced the pipeline to find where events were really
             queueing, rebuilt the consumer groups and partitioning around the correct key, moved slow downstream calls
             off the poll loop, and added a retry topic so one bad message could no longer block a partition.</p>
-          <p class="case-line"><strong>Outcome.</strong> Campaign peaks absorbed without anyone intervening, and stuck
-            orders became an alert instead of a customer complaint.</p>
+          <p class="case-line"><strong>Outcome.</strong> Campaign peaks were absorbed without operator intervention.
+            Support stopped clearing stuck orders by hand, and an order that did stall became an alert the team saw
+            before the customer did.</p>
           <p class="case-repo">Same pattern, public code: <a href="https://github.com/mohitshaky/order-lifecycle-bpmn" target="_blank" rel="noopener noreferrer">order-lifecycle-bpmn</a></p>
         </div>
 
@@ -266,8 +267,9 @@
           <p class="case-line"><strong>What I did.</strong> Made consumers idempotent on a stable event ID, made the
             write path append-only, and split the audit projection from the operational read model so either could be
             rebuilt without touching the other.</p>
-          <p class="case-line"><strong>Outcome.</strong> History reconstructible from the event log alone. Compliance
-            questions answered from the projection instead of from an engineer&rsquo;s afternoon.</p>
+          <p class="case-line"><strong>Outcome.</strong> One query against the audit projection replaced a manual
+            reconciliation across three separate stores. The trail became provably complete because it was derived
+            from the event log rather than assembled alongside it.</p>
           <p class="case-repo">Same pattern, public code: <a href="https://github.com/mohitshaky/banking-account-service" target="_blank" rel="noopener noreferrer">banking-account-service</a></p>
         </div>
 
@@ -279,8 +281,9 @@
           <p class="case-line"><strong>What I did.</strong> Modelled the lifecycle as an explicit BPMN process so the
             sequence became something you could read and review, kept the integration event-driven, and made every
             transition individually traceable.</p>
-          <p class="case-line"><strong>Outcome.</strong> Rule changes became a process-definition edit rather than a
-            coordinated multi-service release.</p>
+          <p class="case-line"><strong>Outcome.</strong> Changing a business rule stopped requiring a coordinated
+            release across six services. It became an edit to a versioned process definition, reviewable in a pull
+            request like any other change.</p>
           <p class="case-repo">Same pattern, public code: <a href="https://github.com/mohitshaky/subscription-workflow-service" target="_blank" rel="noopener noreferrer">subscription-workflow-service</a></p>
         </div>
       </div>
