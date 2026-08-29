@@ -622,16 +622,6 @@ ul { list-style: none; }
   pointer-events: none;
 }
 .scroll-top.visible { opacity: 1; transform: none; pointer-events: auto; }
-.whatsapp-btn {
-  position: fixed; bottom: 84px; right: 24px; z-index: 999;
-  width: 52px; height: 52px; border-radius: 50%;
-  background: #25D366;
-  display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 4px 16px rgba(37,211,102,0.5);
-  transition: transform 0.2s, box-shadow 0.2s;
-  text-decoration: none;
-}
-.whatsapp-btn:hover { transform: scale(1.1); box-shadow: 0 6px 20px rgba(37,211,102,0.6); }
 .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.55s, transform 0.55s; }
 .reveal.visible { opacity: 1; transform: none; }
 
@@ -867,8 +857,11 @@ ul { list-style: none; }
    Consulting layout — casework section and copy-led card treatments
    ------------------------------------------------------------------ */
 
-/* The WhatsApp float was removed, so LinkedIn drops to the base slot */
-.linkedin-btn { bottom: 24px; }
+/* The WhatsApp float was removed. LinkedIn moves down a slot but must clear
+   .scroll-top, which sits at bottom 28px and is 44px tall — dropping it to
+   24px put the two on top of each other at the same z-index, and the later
+   one in the DOM silently swallowed the clicks. */
+.linkedin-btn { bottom: 88px; }
 
 /* Plain-text badge reads better than an emoji on a consulting page */
 .service-card.perf-card::before { content: 'PERFORMANCE'; }
@@ -1443,5 +1436,24 @@ ul { list-style: none; }
 .geo-close:hover { color: var(--text); }
 
 @media (max-width: 560px) {
-  .geo-suggest { left: 12px; right: 12px; bottom: 12px; max-width: none; }
+  /* Stops short of the floating buttons on the right (right: 24px, 52px wide).
+     Going full-width here laid a z-index 1200 panel over both of them and made
+     the LinkedIn and back-to-top controls untappable on exactly the phones this
+     banner targets. */
+  .geo-suggest { left: 12px; right: 88px; bottom: 12px; max-width: none; }
+}
+
+/* ------------------------------------------------------------------
+   Mobile collapse for the pricing grids.
+
+   .pricing-grid's single-column rule lives in a @media block earlier in
+   this file, but .pricing-grid-4 and .pricing-grid-2 are declared later at
+   top level with equal specificity — so source order let them win inside
+   the media query and the grid never collapsed. Re-stating the collapse
+   after both declarations is what actually makes it apply.
+   ------------------------------------------------------------------ */
+@media (max-width: 960px) {
+  .pricing-grid,
+  .pricing-grid-4,
+  .pricing-grid-2 { grid-template-columns: 1fr; }
 }

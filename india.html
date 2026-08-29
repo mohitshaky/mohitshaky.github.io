@@ -23,6 +23,7 @@
     <div class="nav-brand">Mohit<span>.</span></div>
     <ul class="nav-links">
       <li><a href="#free-review" class="nav-free">Free review</a></li>
+      <li><a href="#engage">How I help</a></li>
       <li><a href="#casework">Casework</a></li>
       <li><a href="#projects">Code</a></li>
       <li><a href="#fees">Pricing</a></li>
@@ -298,14 +299,14 @@
           <textarea name="problem" rows="3" placeholder="What is actually going wrong?" aria-label="What is going wrong" required></textarea>
           <select name="budget" aria-label="Rough budget band">
             <option value="">Rough budget band if this becomes work (optional)</option>
-            <option>Under &#8377;50,000</option>
-            <option>&#8377;50,000 &ndash; 1,50,000</option>
-            <option>&#8377;1,50,000+</option>
-            <option>Monthly retainer</option>
-            <option>No budget yet &mdash; a fine answer</option>
+            <option value="inr-under-50k">Under &#8377;50,000</option>
+            <option value="inr-50k-150k">&#8377;50,000 &ndash; 1,50,000</option>
+            <option value="inr-150k-plus">&#8377;1,50,000+</option>
+            <option value="inr-retainer">Monthly retainer</option>
+            <option value="none-yet">No budget yet &mdash; a fine answer</option>
           </select>
           <button type="submit" class="btn-primary" id="reviewBtn">Send my review request</button>
-          <p id="reviewStatus" class="form-status"></p>
+          <p id="reviewStatus" class="form-status" role="status" aria-live="polite"></p>
         </form>
       </div>
     </div>
@@ -336,7 +337,7 @@
           <div class="pricing-badge">Most booked</div>
           <div class="pricing-label">Health Check</div>
           <div class="pricing-price">&#8377;40,000</div>
-          <p class="pricing-desc">One week &middot; written report</p>
+          <p class="pricing-desc">One week &middot; 10&ndash;12 engineering hours</p>
           <ul class="pricing-features">
             <li>Architecture, performance and Kafka review</li>
             <li>Prioritised list of what to fix</li>
@@ -375,10 +376,13 @@
           <a href="#contact" class="btn-secondary">Discuss fractional</a>
         </div>
 
+      </div>
+
+      <div class="pricing-grid pricing-grid-4">
         <div class="pricing-card">
           <div class="pricing-label">Fix &amp; Harden</div>
           <div class="pricing-price">&#8377;1,25,000</div>
-          <p class="pricing-desc">Two weeks</p>
+          <p class="pricing-desc">Two weeks &middot; 35&ndash;40 engineering hours</p>
           <ul class="pricing-features">
             <li>One production problem, fixed properly</li>
             <li>Consumer lag, latency or a bad query path</li>
@@ -388,13 +392,11 @@
           </ul>
           <a href="#contact" class="btn-secondary">Discuss a fix</a>
         </div>
-      </div>
 
-      <div class="pricing-grid pricing-grid-2">
         <div class="pricing-card">
           <div class="pricing-label">Service &amp; Pipeline Build</div>
           <div class="pricing-price">&#8377;2,25,000</div>
-          <p class="pricing-desc">Three to four weeks</p>
+          <p class="pricing-desc">Three to four weeks &middot; 70&ndash;80 engineering hours</p>
           <ul class="pricing-features">
             <li>New microservice or Kafka pipeline</li>
             <li>Domain and API design documented first</li>
@@ -423,14 +425,14 @@
         <div><strong>Fixed price agreed first.</strong> The number does not move unless you change the scope.</div>
         <div><strong>Pay in stages.</strong> 50% advance, balance on milestone acceptance.</div>
         <div><strong>You own everything.</strong> Code, docs and the review, from day one.</div>
-        <div><strong>Prefer hourly?</strong> &#8377;3,500/hr, minimum 10 hours per engagement.</div>
+        <div><strong>Prefer hourly?</strong> &#8377;4,000/hr, minimum 12 hours per engagement.</div>
       </div>
 
       <p class="pricing-note">
-        Hourly is deliberately the more expensive way to buy this. When work is scoped in advance I carry the
-        risk of it taking longer than expected; when it is billed by the hour, you do. Almost everyone ends up
-        better off on a fixed price &mdash; hourly exists for the genuinely unscopeable, like sitting in on an
-        incident. All figures exclusive of GST.
+        The hours next to each price are there so you can check the arithmetic. Every fixed package works out
+        below &#8377;4,000/hr &mdash; scoped work is simply more efficient, and you get a number you can budget
+        against instead of an open meter. Hourly exists for the genuinely unscopeable, like sitting in on an
+        incident, and is priced accordingly. All figures exclusive of GST.
       </p>
 
       <div class="guarantee">
@@ -593,7 +595,7 @@
           <input type="text"  name="project_type" placeholder="What you need — health check, fractional lead, build" aria-label="Type of work" />
           <textarea           name="message"      placeholder="What are you building, and what is going wrong?" aria-label="Describe the situation" rows="5" required></textarea>
           <button type="submit" class="btn-primary" id="submitBtn">Send</button>
-          <p id="formStatus" class="form-status"></p>
+          <p id="formStatus" class="form-status" role="status" aria-live="polite"></p>
         </form>
       </div>
     </div>
@@ -607,87 +609,17 @@
     </p>
   </footer>
 
-  <div class="geo-suggest" id="geoSuggest" role="complementary" aria-label="Region suggestion">
+  <button class="scroll-top" id="scrollTop" title="Back to top" aria-label="Back to top">&#8679;</button>
+
+  <div class="geo-suggest" data-geo-mode="not-in" data-geo-key="geoSuggestDismissedIN" role="complementary" aria-label="Region suggestion">
     <p class="geo-text">
       <strong>Not based in India?</strong>
       This page covers Indian engagements in rupees. International engagements are scoped and priced differently.
       <a href="index.html">See the international page &#8594;</a>
     </p>
-    <button class="geo-close" id="geoClose" aria-label="Dismiss">&times;</button>
+    <button class="geo-close" aria-label="Dismiss">&times;</button>
   </div>
 
-  <script>
-    // Mirror of the suggestion on the international page: anyone whose clock
-    // is not on Indian time is probably on the wrong page. Suggestion only —
-    // never a redirect.
-    (function () {
-      var IN_ZONES = ['Asia/Kolkata', 'Asia/Calcutta'];
-      var box = document.getElementById('geoSuggest');
-      var close = document.getElementById('geoClose');
-      if (!box || !close) return;
-
-      function dismissed() {
-        try { return localStorage.getItem('geoSuggestDismissedIN') === '1'; }
-        catch (e) { return false; }
-      }
-
-      var zone = '';
-      try { zone = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (e) { zone = ''; }
-
-      // Only prompt when we are reasonably sure: a readable zone that is not Indian.
-      if (zone && IN_ZONES.indexOf(zone) === -1 && !dismissed()) {
-        setTimeout(function () { box.classList.add('visible'); }, 1800);
-      }
-
-      close.addEventListener('click', function () {
-        box.classList.remove('visible');
-        try { localStorage.setItem('geoSuggestDismissedIN', '1'); } catch (e) {}
-      });
-    })();
-  </script>
-
-  <script>
-    const CONTACT_EMAIL = ['mohitshakya797', 'gmail', 'com'].join(' ').replace(' ', '@').replace(' ', '.');
-    document.querySelectorAll('.email-link').forEach(a => {
-      a.href = 'mailto:' + CONTACT_EMAIL;
-      if (a.dataset.fill === 'text') a.textContent = CONTACT_EMAIL;
-    });
-
-    // Two forms, one endpoint; request_type distinguishes them on arrival.
-    function wireForm(formId, btnId, statusId) {
-      const form = document.getElementById(formId);
-      if (!form) return;
-      form.addEventListener('submit', async function (e) {
-        e.preventDefault();
-        const btn = document.getElementById(btnId);
-        const status = document.getElementById(statusId);
-        const original = btn.textContent;
-        btn.disabled = true;
-        btn.textContent = 'Sending...';
-        status.style.display = 'none';
-        try {
-          const res = await fetch(this.action, {
-            method: 'POST',
-            body: new FormData(this),
-            headers: { 'Accept': 'application/json' }
-          });
-          if (!res.ok) throw new Error('Server error');
-          status.style.display = 'block';
-          status.style.color = '#1e8449';
-          status.textContent = "Got it. I'll reply within 3 hours during 10:00-19:00 IST.";
-          this.reset();
-        } catch {
-          status.style.display = 'block';
-          status.style.color = '#c0392b';
-          status.textContent = 'Could not send. Please email directly: ' + CONTACT_EMAIL;
-        }
-        btn.disabled = false;
-        btn.textContent = original;
-      });
-    }
-
-    wireForm('reviewForm', 'reviewBtn', 'reviewStatus');
-    wireForm('contactForm', 'submitBtn', 'formStatus');
-  </script>
+  <script src="app.js"></script>
 </body>
 </html>

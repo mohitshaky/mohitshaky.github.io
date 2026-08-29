@@ -469,13 +469,13 @@
           <textarea name="problem" rows="3" placeholder="What is actually going wrong?" aria-label="What is going wrong" required></textarea>
           <select name="budget" aria-label="Rough budget band">
             <option value="">Rough budget band if this becomes work (optional)</option>
-            <option>Under $2k</option>
-            <option>$2k&ndash;6k</option>
-            <option>$6k+</option>
-            <option>No budget yet &mdash; a fine answer</option>
+            <option value="usd-under-2k">Under $2k</option>
+            <option value="usd-2k-6k">$2k&ndash;6k</option>
+            <option value="usd-6k-plus">$6k+</option>
+            <option value="none-yet">No budget yet &mdash; a fine answer</option>
           </select>
           <button type="submit" class="btn-primary" id="reviewBtn">Send my review request</button>
-          <p id="reviewStatus" class="form-status"></p>
+          <p id="reviewStatus" class="form-status" role="status" aria-live="polite"></p>
         </form>
       </div>
     </div>
@@ -749,7 +749,7 @@
           <input type="text"  id="project_type" name="project_type" placeholder="What kind of work — health check, Kafka, build, AI integration" aria-label="Type of work" />
           <textarea           id="message"      name="message"      placeholder="What does the system do, and what is it doing wrong?" aria-label="Describe the situation" rows="5" required></textarea>
           <button type="submit" class="btn-primary" id="submitBtn">Send</button>
-          <p id="formStatus" class="form-status"></p>
+          <p id="formStatus" class="form-status" role="status" aria-live="polite"></p>
         </form>
       </div>
     </div>
@@ -773,124 +773,17 @@
     </svg>
   </a>
 
-  <button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top" aria-label="Back to top">&#8679;</button>
+  <button class="scroll-top" id="scrollTop" title="Back to top" aria-label="Back to top">&#8679;</button>
 
-  <div class="geo-suggest" id="geoSuggest" role="complementary" aria-label="Region suggestion">
+  <div class="geo-suggest" data-geo-mode="in" data-geo-key="geoSuggestDismissed" role="complementary" aria-label="Region suggestion">
     <p class="geo-text">
       <strong>Looks like you&rsquo;re in India.</strong>
       I price Indian engagements in rupees, with different terms &mdash; GST, UPI, and in-person work across Delhi NCR.
       <a href="india.html">See the India page &#8594;</a>
     </p>
-    <button class="geo-close" id="geoClose" aria-label="Dismiss">&times;</button>
+    <button class="geo-close" aria-label="Dismiss">&times;</button>
   </div>
 
-  <script>
-    // Suggest the rupee page to visitors whose device clock is set to Indian
-    // time. Timezone rather than an IP lookup: no external request, nothing to
-    // block, and no third party learning who reads this page.
-    (function () {
-      var IN_ZONES = ['Asia/Kolkata', 'Asia/Calcutta'];
-      var box = document.getElementById('geoSuggest');
-      var close = document.getElementById('geoClose');
-      if (!box || !close) return;
-
-      function dismissed() {
-        try { return localStorage.getItem('geoSuggestDismissed') === '1'; }
-        catch (e) { return false; }   // private mode: just show it
-      }
-
-      var zone = '';
-      try { zone = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (e) { zone = ''; }
-
-      if (IN_ZONES.indexOf(zone) !== -1 && !dismissed()) {
-        // Held back a moment so it does not compete with the hero on arrival.
-        setTimeout(function () { box.classList.add('visible'); }, 1800);
-      }
-
-      close.addEventListener('click', function () {
-        box.classList.remove('visible');
-        try { localStorage.setItem('geoSuggestDismissed', '1'); } catch (e) {}
-      });
-    })();
-  </script>
-
-  <script>
-    // Build contact links at runtime — keeps the address out of static HTML
-    const CONTACT_EMAIL = ['mohitshakya797', 'gmail', 'com'].join(' ').replace(' ', '@').replace(' ', '.');
-    document.querySelectorAll('.email-link').forEach(a => {
-      a.href = 'mailto:' + CONTACT_EMAIL;
-      if (a.dataset.fill === 'text') a.textContent = CONTACT_EMAIL;
-    });
-  </script>
-
-  <script>
-    // Both forms post to the same endpoint; request_type distinguishes them.
-    function wireForm(formId, btnId, statusId, sentMessage) {
-      const form = document.getElementById(formId);
-      if (!form) return;
-      form.addEventListener('submit', async function (e) {
-        e.preventDefault();
-        const btn = document.getElementById(btnId);
-        const status = document.getElementById(statusId);
-        const original = btn.textContent;
-        btn.disabled = true;
-        btn.textContent = 'Sending...';
-        status.style.display = 'none';
-        try {
-          const res = await fetch(this.action, {
-            method: 'POST',
-            body: new FormData(this),
-            headers: { 'Accept': 'application/json' }
-          });
-          if (!res.ok) throw new Error('Server error');
-          status.style.display = 'block';
-          status.style.color = '#1e8449';
-          status.textContent = sentMessage;
-          this.reset();
-        } catch {
-          status.style.display = 'block';
-          status.style.color = '#c0392b';
-          status.textContent = 'Could not send. Please email directly: ' + CONTACT_EMAIL;
-        }
-        btn.disabled = false;
-        btn.textContent = original;
-      });
-    }
-
-    wireForm('reviewForm', 'reviewBtn', 'reviewStatus',
-      "Got it. I'll reply within 3 hours during 10:00-19:00 IST.");
-    wireForm('contactForm', 'submitBtn', 'formStatus',
-      "Message sent. I'll reply within 3 hours during 10:00-19:00 IST.");
-  </script>
-
-  <script>
-    const sections = document.querySelectorAll('section');
-    const navLinks = document.querySelectorAll('.nav-links a');
-    let scrollTicking = false;
-    window.addEventListener('scroll', () => {
-      if (scrollTicking) return;
-      scrollTicking = true;
-      requestAnimationFrame(() => {
-        let current = '';
-        sections.forEach(s => {
-          if (window.scrollY >= s.offsetTop - 80) current = s.getAttribute('id');
-        });
-        navLinks.forEach(a => {
-          a.classList.remove('active');
-          if (a.getAttribute('href') === '#' + current) a.classList.add('active');
-        });
-        document.getElementById('scrollTop').classList.toggle('visible', window.scrollY > 400);
-        scrollTicking = false;
-      });
-    }, { passive: true });
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-    }, { threshold: 0.1 });
-    document.querySelectorAll('.service-card, .project-card, .process-step, .pricing-card, .problem-card, .case-card, .working-item').forEach(el => {
-      el.classList.add('reveal');
-      observer.observe(el);
-    });
-  </script>
+  <script src="app.js"></script>
 </body>
 </html>
