@@ -1072,3 +1072,181 @@ ul { list-style: none; }
   transition: border-color 0.2s;
 }
 .hero-resume a:hover { border-bottom-color: var(--primary); }
+
+/* ------------------------------------------------------------------
+   Free offer, four-column pricing ladder, FAQ
+   ------------------------------------------------------------------ */
+
+.nav-free {
+  color: #1e8449 !important;
+  font-weight: 700 !important;
+}
+.nav-free::before {
+  content: '';
+  display: inline-block;
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: #28c864;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+.free-offer {
+  padding: 64px 0;
+  background: linear-gradient(135deg, #eafaf1 0%, #f4f8fe 100%);
+  border-bottom: 1px solid var(--border);
+}
+.free-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2.5rem;
+  flex-wrap: wrap;
+  background: var(--surface);
+  border: 2px solid #28c864;
+  border-radius: var(--radius-lg);
+  padding: 2.5rem 2.75rem;
+  box-shadow: 0 8px 40px rgba(40,200,100,0.16);
+}
+.free-main { flex: 1 1 460px; }
+.free-badge {
+  display: inline-block;
+  background: #28c864;
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 5px 13px;
+  border-radius: 50px;
+  margin-bottom: 1rem;
+}
+.free-box h2 {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--text);
+  line-height: 1.25;
+  margin-bottom: 0.85rem;
+}
+.free-lede {
+  font-size: 0.98rem;
+  line-height: 1.75;
+  color: var(--text-muted);
+  margin-bottom: 1.35rem;
+}
+.free-lede strong { color: var(--text); }
+.free-points {
+  display: grid;
+  gap: 0.55rem;
+}
+.free-points div {
+  font-size: 0.86rem;
+  color: var(--text-muted);
+  line-height: 1.65;
+  padding-left: 1.4rem;
+  position: relative;
+}
+.free-points div::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0.42em;
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  background: #28c864;
+}
+.free-points strong { color: var(--text); }
+.free-cta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.7rem;
+  flex: 0 0 auto;
+}
+.free-cta .btn-primary {
+  background: #28c864;
+  border-color: #28c864;
+  white-space: nowrap;
+  font-size: 1rem;
+  padding: 0.9rem 1.9rem;
+}
+.free-cta .btn-primary:hover {
+  background: #1e8449;
+  border-color: #1e8449;
+  transform: translateY(-2px);
+}
+.free-note {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  text-align: center;
+  max-width: 190px;
+  line-height: 1.5;
+}
+
+/* Four rungs instead of three */
+.pricing-grid-4 {
+  grid-template-columns: repeat(auto-fit, minmax(232px, 1fr));
+}
+.pricing-card.pricing-free {
+  border-color: #28c864;
+  background: linear-gradient(160deg, #f2fcf6, var(--surface));
+}
+.pricing-card.pricing-free .pricing-price { color: #1e8449; }
+.pricing-card.pricing-free:hover { border-color: #1e8449; box-shadow: 0 8px 32px rgba(40,200,100,0.2); }
+
+/* FAQ */
+.faq { background: var(--bg-alt); }
+.faq-list {
+  max-width: 780px;
+  margin: 2.5rem auto 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.faq-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.1rem 1.4rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.faq-item[open] {
+  border-color: var(--primary);
+  box-shadow: var(--shadow);
+}
+.faq-item summary {
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: var(--text);
+  cursor: pointer;
+  list-style: none;
+  position: relative;
+  padding-right: 2rem;
+  line-height: 1.5;
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after {
+  content: '+';
+  position: absolute;
+  right: 0; top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: var(--primary);
+  line-height: 1;
+}
+.faq-item[open] summary::after { content: '\2212'; }
+.faq-item p {
+  margin-top: 0.85rem;
+  font-size: 0.9rem;
+  line-height: 1.8;
+  color: var(--text-muted);
+}
+
+@media (max-width: 700px) {
+  .free-box { padding: 1.75rem 1.4rem; text-align: center; }
+  .free-points div { text-align: left; }
+  .free-cta { width: 100%; }
+  .free-cta .btn-primary { width: 100%; }
+  .free-note { max-width: none; }
+  .free-box h2 { font-size: 1.4rem; }
+}
