@@ -1444,6 +1444,54 @@ ul { list-style: none; }
 }
 
 /* ------------------------------------------------------------------
+   Stack tags
+   ------------------------------------------------------------------ */
+.stack { background: var(--bg-alt); }
+.stack-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+}
+.stack-group {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.35rem 1.5rem;
+}
+.stack-group h4 {
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 0.9rem;
+}
+/* The AI group is the differentiator, so it gets the accent treatment —
+   most Spring Boot freelancers cannot fill this box. */
+.stack-group.stack-ai {
+  border-color: rgba(26,115,232,0.45);
+  background: linear-gradient(160deg, var(--tint, #f4f8fe), var(--surface));
+}
+.stack-group.stack-ai h4 { color: var(--primary); }
+.stack-group.stack-ai .tag {
+  background: rgba(26,115,232,0.1);
+  border-color: rgba(26,115,232,0.3);
+  color: var(--primary-dark);
+}
+.tag-row { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.tag {
+  font-size: 0.79rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  padding: 4px 11px;
+  border-radius: 50px;
+  white-space: nowrap;
+}
+
+/* ------------------------------------------------------------------
    Long-form articles
    ------------------------------------------------------------------ */
 .article-wrap {
